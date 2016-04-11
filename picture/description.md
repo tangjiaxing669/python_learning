@@ -1,2 +1,2 @@
 # Description
-This is description for picture.
+* This is description for picture.

@@ -125,7 +125,7 @@ l => 1
 
 > `python3`中的unpack，是不是觉得非常的神奇...
 
-# Python3中的字符串与文本操作
+### Python3中的字符串与文本操作
 
 - `Python2`和`Python3`最大的区别就在于字符串
 - `Python2`中字符串是`byte`的有序序列

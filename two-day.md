@@ -124,3 +124,94 @@ l => 1
 ```
 
 > `python3`中的unpack，是不是觉得非常的神奇...
+
+# Python3中的字符串与文本操作
+
+- `Python2`和`Python3`最大的区别就在于字符串
+- `Python2`中字符串是`byte`的有序序列
+- `Python3`中字符串是`unicode`的有序序列
+- 字符串是不可变的
+- 字符串支持下标与切片
+
+### 字符串格式化
+
+- print style format
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+print('i love %s' % ('python'))
+
+print('i love %(name)s' % {'name':'python'})
+
+print('i love %(name)s, %(name)s is my first lang.' % {'name':'python'})
+
+print('i love %s, %s is my first lang.' % ('python', 'python'))
+```
+
+执行结果如下：
+
+```
+i love python
+i love python
+i love python, python is my first lang.
+i love python, python is my first lang.
+```
+
+### 字符串常用操作
+
+- `join`字符串连接
+- 字符串分割`split`，`rsplit`，`splitlines`，`partition`，`rpartition`
+- 字符串修改-大小写 `capitalize`，`title`，`lower`，`upper`，`swapcase`
+- 字符串修改-填充清除`center`，`ljust`，`ljust`，`rjust`，`zfill`，`strip`，`rstrip`，`lstrip`
+- 字符串判断`startswith`，`endswith`，`is*`
+- 字符串查找替换`count`，`find`，`rfind`，`index`，`rindex`，`replace`
+
+### STR与BYTES
+
+- `Python3`中严格区分了文本和二进制数据
+- `Python2`并没有严格区分
+- 文本数据使用`str`类型，底层实现是`unicode`
+- 二进制数据使用`bytes`类型，底层是`byte`
+- `str`使用`encode`方法转化为`bytes`
+- `bytes`方法使用`decode`方法转化为`str`
+- 由于清晰的区分文本和二进制，`Python3`解决了大多数`Python2`的编码问题 
+
+### 函数
+
+> 函数的参数可以是另一个函数；如下
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+def sort(cmp, *args):   # 此处的cmp接受的是一个函数名，分别为cmp1和cmp2
+    ret = []
+    for item in args:
+        for i, v in enumerate(ret):
+            if cmp(item, v):    # 调用cmp1和cmp2函数进行判断
+                ret.insert(i, item)
+                break
+        else:
+            ret.append(item)
+    return ret
+
+def cmp1(x, y):
+    return x >= y
+
+def cmp2(x, y):
+    return x <= y
+
+print('cmp1 => ', sort(cmp1, 3, 1, 2, 5))   # 将cmp1函数名传递过去
+print('cmp2 => ', sort(cmp2, 3, 1, 2, 5))   # 将cmp2函数名传递过去
+```
+
+执行结果如下：
+
+```
+cmp1 =>  [5, 3, 2, 1]
+cmp2 =>  [1, 2, 3, 5]
+```

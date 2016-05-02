@@ -355,3 +355,42 @@ conn.close()
 > 减少调用函数时输入的参数个数；
 我们可以将那些固定不需要变化的参数写入到 partial 中；然后再调用 partial 函数作引用...
 以此来减少重复代码.
+
+> 我们再来看一个简单的例子.
+
+```
+__author__ = 'Jason tom'
+# -*- coding:utf-8 -*-
+
+from functools import partial
+
+def many_args(a, b, c, d, e, f, g):
+    print('a is {0}'.format(a))
+    print('b is {0}'.format(b))
+    print('c is {0}'.format(c))
+    print('d is {0}'.format(d))
+    print('e is {0}'.format(e))
+    print('f is {0}'.format(f))
+    print('g is {0}'.format(g))
+
+# 这里传入的参数 e, f, g 都是以默认参数进行传递的，在调用此函数的时候，这些默认参数的值都是可以修改的
+args_1 = partial(many_args, e=1, f=2, g=3)
+
+args_1(4, 5, 6, 7)
+```
+
+执行结果如下：
+
+```
+a is 4
+b is 5
+c is 6
+d is 7
+e is 1
+f is 2
+g is 3
+```
+
+> 这种方式在很多场合都是可以用到的....比如上面演示的 mysql 连接....
+
+### 装饰器

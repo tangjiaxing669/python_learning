@@ -221,5 +221,57 @@ cmp2 =>  [1, 2, 3, 5]
 > 如下：
 
 ```
+__author__ = 'bbk'
+# -*- coding:utf-8 -*-
+
+def make_inc(f=1):
+    def inc(x):
+        return x + f
+    return inc
+
+inc1 = make_inc(1)
+print('inc1_type => {0}'.format(type(inc1)))
+print('inc1(5) => {0}'.format(inc1(5)))
+inc2 = make_inc(2)
+print('inc2_type => {0}'.format(type(inc2)))
+print('inc2(5) => {0}'.format(inc2(5)))
+```
+
+执行结果如下：
 
 ```
+inc1_type => <class 'function'>
+inc1(5) => 6
+inc2_type => <class 'function'>
+inc2(5) => 7
+```
+
+> 注意：上面的函数调用可以使用如下简单的方式来调用；
+
+```
+make_inc(1)(5)
+```
+
+结果依然返回`6`；这被称为`柯里化`；类似于`f(x, y) -> g(x)(y)`
+再看一个例子：
+
+```
+def bigger(x):
+    def inner_bigger(y):
+        return y > x
+    return inner_bigger
+
+print(list(filter(bigger(5), range(10))))
+print(list(filter(bigger(3), range(10))))
+```
+
+执行结果如下：
+
+```
+[6, 7, 8, 9]
+[4, 5, 6, 7, 8, 9]
+```
+
+> 说明：第一个`print()`打印出`range(10)`中比`5`大的值；第二个`print()`打印出`range(10)`中比`3`大的值；
+
+> 解析：`bigger(5)`返回的是一个函数`inner_bigger`，而此时`bigger`函数中的`x`参数已经被固定了为`5`；`filter`是`python`中内置过滤函数，接收两个参数，一个是`function or None`，第二个是`iterable`；返回一个迭代对象；此时；`filter`内部应该是`filter(inner_bigger, range(10))`；函数`inner_bigger`接收一个参数，这个参数来自于`range(10)`中的每一个值，而这个函数返回`y > x`的值，存进`filter`内部，而`filter`又返回的是一个可迭代的对象，所以此处使用`list`来获取这个可以迭代对象中的值，获取出来的结果也就是上面执行后的结果；

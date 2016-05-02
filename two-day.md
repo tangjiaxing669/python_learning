@@ -340,6 +340,9 @@ conn.select_db('mysql')
 cur.execute('select user,host,password from user;')
 for i in cur.fetchall():
     print(i)
+
+cur.close()
+conn.close()
 ```
 
 执行结果如下：

@@ -287,7 +287,7 @@ def bigger(x):
 print(list(filter(bigger(5), range(10))))
 print(list(filter(bigger(3), range(10))))
 
-# bigger(5) 返回的是一个函数 inner_bigger，此时，x 参数的值已经被固定为 5
+# bigger(5) 返回的是一个函数 inner_bigger，此时，x 参数的值已经被固定为 5，知道下次调用 bigger 函数时才会改变其值
 bigger_inner = bigger(5)   
 
 # bigger_inner 也是一个函数，就是 inner_bigger

@@ -315,3 +315,11 @@ bigger_inner(6) => True
 filter(bigger_inner, range(10)) => <filter object at 0x00000000021FCAC8>
 list(filter(bigger_inner, range(10))) => [6, 7, 8, 9]
 ```
+
+### 减少调用函数时输入的参数个数
+
+> 先看例子...
+
+```
+
+```

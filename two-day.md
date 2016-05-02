@@ -321,5 +321,34 @@ list(filter(bigger_inner, range(10))) => [6, 7, 8, 9]
 > 先看例子...
 
 ```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+import pymysql
+from functools import partial
+
+# partial 接收一个函数对象，和若干个参数；注意，这些参数将作为形参传递给partial所接收的这个函数
+# 并且，partial返回的也是一个函数
+connect = partial(pymysql.connect, port=3306, user='root', password='redhat')
+
+# 调用partial返回的这个函数，由于mysql连接没有指定host参数
+conn = connect(host='127.0.0.1')
+
+cur = conn.cursor()
+conn.select_db('mysql')
+cur.execute('select user,host,password from user;')
+for i in cur.fetchall():
+    print(i)
+```
+
+执行结果如下：
 
 ```
+('root', 'localhost', '*84BB5DF4823DA319BBF86C99624479A198E6EEE9')
+('root', '127.0.0.1', '*84BB5DF4823DA319BBF86C99624479A198E6EEE9')
+```
+
+> 减少调用函数时输入的参数个数；
+我们可以将那些固定不需要变化的参数写入到 partial 中；然后再调用 partial 函数作引用...
+以此来减少重复代码.

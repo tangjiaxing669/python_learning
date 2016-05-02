@@ -275,3 +275,43 @@ print(list(filter(bigger(3), range(10))))
 > 说明：第一个`print()`打印出`range(10)`中比`5`大的值；第二个`print()`打印出`range(10)`中比`3`大的值；
 
 > 解析：`bigger(5)`返回的是一个函数`inner_bigger`，而此时`bigger`函数中的`x`参数已经被固定了为`5`；`filter`是`python`中内置过滤函数，接收两个参数，一个是`function or None`，第二个是`iterable`；返回一个迭代对象；此时；`filter`内部应该是`filter(inner_bigger, range(10))`；函数`inner_bigger`接收一个参数，这个参数来自于`range(10)`中的每一个值，而这个函数返回`y > x`的值，存进`filter`内部，而`filter`又返回的是一个可迭代的对象，所以此处使用`list`来获取这个可以迭代对象中的值，获取出来的结果也就是上面执行后的结果；
+
+我们再详细的解剖下上面的函数...
+
+```
+def bigger(x):
+    def inner_bigger(y):
+        return y > x
+    return inner_bigger
+
+print(list(filter(bigger(5), range(10))))
+print(list(filter(bigger(3), range(10))))
+
+# bigger(5) 返回的是一个函数 inner_bigger，此时，x 参数的值已经被固定为 5
+bigger_inner = bigger(5)   
+
+# bigger_inner 也是一个函数，就是 inner_bigger
+print('bigger_inner => {0}'.format(bigger_inner))   
+
+# 这里的 bigger_inner 函数就是上面的 inner_bigger 函数；传入参数为 4，所以 y 的值就是 4
+print('bigger_inner(4) => {0}'.format(bigger_inner(4)))
+print('bigger_inner(6) => {0}'.format(bigger_inner(6)))
+
+# 注意：filter返回的是一个可迭代的对象
+print('filter(bigger_inner, range(10)) => {0}'.format(filter(bigger_inner, range(10))))
+
+# 所以这里使用list来获取迭代对象中的值
+print('list(filter(bigger_inner, range(10))) => {0}'.format(list(filter(bigger_inner, range(10)))))
+```
+
+执行结果如下：
+
+```
+[6, 7, 8, 9]
+[4, 5, 6, 7, 8, 9]
+bigger_inner => <function bigger.<locals>.inner_bigger at 0x00000000021FD9D8>
+bigger_inner(4) => False
+bigger_inner(6) => True
+filter(bigger_inner, range(10)) => <filter object at 0x00000000021FCAC8>
+list(filter(bigger_inner, range(10))) => [6, 7, 8, 9]
+```

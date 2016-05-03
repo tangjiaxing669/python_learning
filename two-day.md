@@ -394,3 +394,79 @@ g is 3
 > 这种方式在很多场合都是可以用到的....比如上面演示的 mysql 连接....
 
 ### 装饰器
+
+> 先看个例子...
+> 测试某个函数执行所需的时间...
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+import time
+
+# timeit 函数接收一个函数作为参数，接收过来的函数名为 func
+def timeit(func):
+    def warp(*args, **kwargs):
+        start = time.time()
+        # 调用 timeit 接收过来的函数；也就是执行 func 函数
+        func(*args, **kwargs)
+        print(time.time() - start)
+    # timeit 函数返回一个函数 warp
+    return warp
+
+def sleep(x):
+    time.sleep(x)
+
+# 解析
+# timeit(sleep) 返回一个函数 warp
+# 再调用 warp 函数，并传递一个参数 3
+timeit(sleep)(3)
+```
+
+执行结果如下：
+
+```
+3.001720666885376
+```
+
+> 注意下上面函数执行的调用方式`timeit(sleep)(3)`，其实这种方式就是`装饰器`的执行原理；
+> 我们再看看上面的函数改用`装饰器`的调用方式.
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+import time
+
+# timeit 函数接收一个函数作为参数，接收过来的函数名为 func
+def timeit(func):
+    def warp(*args, **kwargs):
+        start = time.time()
+        # 调用 timeit 接收过来的函数；也就是执行 func 函数
+        func(*args, **kwargs)
+        print(time.time() - start)
+    # timeit 函数返回一个函数 warp
+    return warp
+
+@timeit
+def sleep(x):
+    time.sleep(x)
+
+# 解析
+# timeit(sleep) 返回一个函数 warp
+# 再调用 warp 函数，并传递一个参数 3
+# timeit(sleep)(3)
+
+sleep(3)
+```
+
+执行结果如下：
+
+```
+3.001720666885376
+```
+
+> 注意，我们将原有的`timeit(sleep)(3)`调用方式改为了`sleep(3)`，并且在`sleep()`函数前面加上了一个`@timeit`，这个就代表了`装饰器`；
+> `@timeit`可以理解成一个标记；在上面的函数中，他相当于给函数`sleep()`做了一个记号；作用就是，每次在调用`sleep()`函数时，就相当于执行`time(sleep)(3)`，而这，就是`装饰器`的作用。

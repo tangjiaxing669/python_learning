@@ -505,7 +505,7 @@ print('time.clock() => {0}'.format(time.clock() - start))
 
 ```
 time.time() => 3.003103733062744
-time.time() => 0.0
+time.clock() => 0.0
 ```
 
 OK，董了！

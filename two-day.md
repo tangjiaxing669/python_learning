@@ -508,4 +508,85 @@ time.time() => 3.003103733062744
 time.clock() => 0.0
 ```
 
-OK，董了！
+OK，懂了！
+
+> 在来看一个例子...
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+import time
+
+# Note：timeit 返回的是 inner_timeit 函数
+def timeit(process_time=False):
+    # Note：这里的 calc 是一个函数，因为后面的 time.clock 和 time.time 都是没有加括号的
+    calc = time.clock if process_time else time.time
+    # Note： inner_timeit 返回的是 wrap 函数；并且接收一个函数 fn <= sleep
+    def inner_timeit(fn):
+        def wrap(*args, **kwargs):
+            # 调用 calc() 函数，根据 process_time 返回 time.time() 或 time.clock() 的值
+            start = calc()
+            # 调用 inner_timeit 接收过来函数 fn，也就是下面传递过来的 sleep 函数
+            ret = fn(*args, **kwargs)
+            # calc() 再次调用此函数获取当前的 time.time() 或 time.clock() 的值
+            print(calc() - start)
+            return ret
+        return wrap
+    return inner_timeit
+
+# 这里 @timeit(False) 返回的是 inner_timeti 函数，而 inner_timeti 接收一个函数作为参数，也就是下面的 sleep 函数；
+# 而 inner_timeti 又返回 wrap 函数，所以此时，wrap 函数就相当于 sleep 函数；
+# 而 wrap 函数的参数就是 sleep 函数的参数
+@timeit(False)
+def sleep(x):
+    time.sleep(x)
+    
+sleep(3)
+```
+
+执行结果如下：
+
+```
+3.0025980472564697
+```
+
+再看一个例子...
+
+> 用在权限控制方面的装饰器.
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+# 这里 check() 接收的是一个用户list，返回 decorator() 函数
+def check(private_list):
+    # decorator() 接收一个函数作为参数，并返回 wrap() 函数，而这里的 func 就是下面的 private_operate 函数
+    def decorator(func):
+        # wrap() 函数接收的就是下面 private_operate 的参数
+        def wrap(user_name, *args, **kwargs):
+            if user_name not in private_list:
+                print('Not Allow...')
+                return 1
+            return func(user_name, *args, **kwargs)
+        return wrap
+    return decorator
+
+# 这里装饰器传递过去的是允许执行敏感操作的用户，而不在此 list 中的用户没有权限执行
+@check(['tang', 'jia', 'tangjiaxing'])
+def private_operate(user_name):
+    # 我们假设这里的 print() 语句是我们要执行的敏感语句
+    print('要执行的敏感操作...')
+
+private_operate('tang')
+private_operate('tangjia')
+```
+
+执行结果如下：
+
+```
+要执行的敏感操作...
+Not Allow...
+```

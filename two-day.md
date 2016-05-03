@@ -486,5 +486,26 @@ sleep(3)
 示例：
 
 ```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+import time
+
+start = time.time()
+time.sleep(3)
+print('time.time() => {0}'.format(time.time() - start))
+
+start = time.clock()
+time.sleep(3)
+print('time.clock() => {0}'.format(time.clock() - start))
+```
+
+执行结果如下：
 
 ```
+time.time() => 3.003103733062744
+time.time() => 0.0
+```
+
+OK，董了！

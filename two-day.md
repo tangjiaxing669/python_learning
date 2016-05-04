@@ -674,4 +674,82 @@ private_operate
     :return: None
 ```
 
-这样就完美了！
+这样就完美了？但是一个函数定以后，它的默认属性是非常多的，比如上面的`private_operate()`函数，他的属性包括了如下：
+```
+['__call__',
+ '__class__',
+ '__closure__',
+ '__code__',
+ '__defaults__',
+ '__delattr__',
+ '__dict__',
+ '__doc__',
+ '__format__',
+ '__get__',
+ '__getattribute__',
+ '__globals__',
+ '__hash__',
+ '__init__',
+ '__module__',
+ '__name__',
+ '__new__',
+ '__reduce__',
+ '__reduce_ex__',
+ '__repr__',
+ '__setattr__',
+ '__sizeof__',
+ '__str__',
+ '__subclasshook__',
+ 'func_closure',
+ 'func_code',
+ 'func_defaults',
+ 'func_dict',
+ 'func_doc',
+ 'func_globals',
+ 'func_name']
+```
+这个时候难道我们要一次去给每一个属性赋值改变吗？类似`wrap.__doc__ = func.__doc__`；
+这样肯定是不合理的，Python给我们提供了一个内置的函数装饰器，`functools.wraps`，它可以帮助完成上面的一切.
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+from functools import wraps     # 导入函数
+
+def check(private_list):
+    def decorator(func):
+        @wraps(func)        # wraps 装饰器接收我们要执行的函数 func，也就是下面的 private_operate
+        def wrap(user_name, *args, **kwargs):
+            if user_name not in private_list:
+                print('Not Allow...')
+                return 1
+            return func(user_name, *args, **kwargs)
+        return wrap
+    return decorator
+
+@check(['tang', 'jia', 'tangjiaxing'])
+def private_operate(user_name):
+    '''
+    :Just test
+    :param user_name: None
+    :return: None
+    '''
+    print('要执行的敏感操作...')
+
+print(private_operate.__name__)
+print(private_operate.__doc__)
+```
+
+执行结果如下：
+
+```
+private_operate
+
+    :Just test
+    :param user_name: None
+    :return: None
+```
+
+这样就接近完美了！

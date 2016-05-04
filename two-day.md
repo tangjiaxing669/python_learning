@@ -577,6 +577,11 @@ def check(private_list):
 # 这里装饰器传递过去的是允许执行敏感操作的用户，而不在此 list 中的用户没有权限执行
 @check(['tang', 'jia', 'tangjiaxing'])
 def private_operate(user_name):
+    '''
+    :Just test
+    :param user_name: None
+    :return: None
+    '''
     # 我们假设这里的 print() 语句是我们要执行的敏感语句
     print('要执行的敏感操作...')
 
@@ -590,3 +595,83 @@ private_operate('tangjia')
 要执行的敏感操作...
 Not Allow...
 ```
+
+现在我们来看下`private_operate()`的 `__name__`和`__doc__`属性....
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+def check(private_list):
+    def decorator(func):
+        def wrap(user_name, *args, **kwargs):
+            if user_name not in private_list:
+                print('Not Allow...')
+                return 1
+            return func(user_name, *args, **kwargs)
+        return wrap
+    return decorator
+
+@check(['tang', 'jia', 'tangjiaxing'])
+def private_operate(user_name):
+    '''
+    :Just test
+    :param user_name: None
+    :return: None
+    '''
+    print('要执行的敏感操作...')
+
+print(private_operate.__name__)
+print(private_operate.__doc__)
+```
+
+结果如下：
+
+```
+wrap
+None
+```
+看到`private_operate.__name__`的输出为`wrap`，`private_operate.__doc__`的输出为`None`；这是为啥？我们明明执行的是`private_operate`这个函数；原因就是我们用了`装饰器`给函数进行包装了；我们在执行`private_operate()`函数时，实际是执行的`wrap()`这个函数，所以我们将代码改成下面的就可以了...
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+def check(private_list):
+    def decorator(func):
+        def wrap(user_name, *args, **kwargs):
+            if user_name not in private_list:
+                print('Not Allow...')
+                wrap.__name__ = func.__name__   # 注意这里
+                wrap.__doc__ = func.__doc__     # 注意这里
+                return 1
+            return func(user_name, *args, **kwargs)
+        return wrap
+    return decorator
+
+@check(['tang', 'jia', 'tangjiaxing'])
+def private_operate(user_name):
+    '''
+    :Just test
+    :param user_name: None
+    :return: None
+    '''
+    print('要执行的敏感操作...')
+
+print(private_operate.__name__)
+print(private_operate.__doc__)
+```
+
+执行结果如下：
+
+```
+private_operate
+
+    :Just test
+    :param user_name: None
+    :return: None
+```
+
+这样就完美了！

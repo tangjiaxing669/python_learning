@@ -65,7 +65,6 @@ instance = MyClass(3, 4)
 
 instance.instance_method()
 instance.class_method()
-#instance.static_method()
 ```
 
 > Note:
@@ -78,6 +77,16 @@ instance.class_method()
 > 类变量 => 被定义在类方法外部的变量的称为类变量，它是共享，所有实例都共享此变量；可以是公有的，也可是私有的
 
 > 实例方法 => 就是类中定义的一个个的函数，这就是实例方法
+
+再看一个静态方法的例子...
+
+```
+class MyClass:
+    __vars = 5
+    @staticmethod
+    def get_value():
+        return __vars
+```
 
 > 静态方法 => （在实例方法上面加上一个 @staticmethod 就是静态方法了）
 

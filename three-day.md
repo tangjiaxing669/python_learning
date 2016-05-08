@@ -207,48 +207,48 @@ a1 = Class_A()
 ```
 执行 a1.public_instance_a()
     输出：
-    	public instance a var
+	public instance a var
 	private instance a var
 	public class a var
 	private class a var
 	
 执行 a1.__pri_instance_a()
     输出：
-    	Traceback (most recent call last):
+	Traceback (most recent call last):
 	  File "/root/python3/OOP_3.py", line 91, in <module>
 	    a1.__pri_instance_a()
 	AttributeError: 'Class_A' object has no attribute '__pri_instance_a'
 	
 执行 a1.public_class_method()
     输出：
-    	public class a var
+	public class a var
 	private class a var
 	
 执行 a1.__pri_class_method()
     输出：
-    	Traceback (most recent call last):
+	Traceback (most recent call last):
 	  File "/root/python3/OOP_3.py", line 93, in <module>
 	    a1.__pri_class_method()
 	AttributeError: 'Class_A' object has no attribute '__pri_class_method'
 	
 执行 print(a1.public_class_a_var)
     输出：
-    	public class a var
+	public class a var
     	
 执行 print(a1.__pri_class_a_var)
     输出：
-	    	Traceback (most recent call last):
+	Traceback (most recent call last):
 	  File "/root/python3/OOP_3.py", line 95, in <module>
 	    print(a1.__pri_class_a_var)
 	AttributeError: 'Class_A' object has no attribute '__pri_class_a_var'
 	
 执行 print(a1.public_instance_a_var)
     输出：
-    	public instance a var
+	public instance a var
     	
 执行 print(a1.__pri_instance_a_var)
     输出：
-    	Traceback (most recent call last):
+	Traceback (most recent call last):
 	  File "/root/python3/OOP_3.py", line 97, in <module>
 	    print(a1.__pri_instance_a_var)
 	AttributeError: 'Class_A' object has no attribute '__pri_instance_a_var'

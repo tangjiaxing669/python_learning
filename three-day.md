@@ -292,9 +292,6 @@ class Lock_Door(Door):
         else:
             print('The Door is Locked.')
 
-    def close(self):
-        super(Lock_Door, self).close_door()
-
     def lock(self):
         if self.status == 'closed':
             self.lock_status = True

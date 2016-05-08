@@ -262,7 +262,7 @@ a1 = Class_A()
 
 ### 继承
 
-> 继承分为但继承和多继承；我们先看一个但继承的例子...
+> 继承分为但继承和多继承；我们先看一个单继承的例子...
 
 ```
 #!/usr/bin/env python3
@@ -304,3 +304,131 @@ door.lock()
 ```
 
 > 在上面的例子中，我们定义了一个`Door`类，它有两个属性，`number`和`status`，分别指**门牌号**和**门状态**，**门状态**仅有开和关两种状态；然后分别定义了两个实例方法，`open_door`和`close_door`；我们还定义了一个`Lock_Door`的类，它继承了`Door`这个类，并且自己还拥有一个独立的属性`lock_status`，代表门有没有被上锁，然后还拥有一个`lock`的方法；*（`super`语句仅用来初始化父类的；上面的`super(Lock_Door, self).__init__(number, status)`代表初始化父类`Door`；`super(Lock_Door, self).open_door()`代表调用父类的`open_door()`方法）*
+
+现在再来看一个多继承的例子...
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+class A:
+    def method_from_a(self):
+        print('Method From A')
+
+class B:
+    def method_from_b(self):
+        print('Method From B')
+
+class C(A, B):
+    pass
+
+c = C()
+c.method_from_a()
+c.method_from_b()
+```
+
+> 上面我们定义了三个类`A`、`B`、`C`；类`C`依次继承了类`A`和类`B`，我们实例化类`C`后，同时获得了类`A`和类`B`中的所有属性方法；
+
+> 我们再看一个例子，将上面的代码该一改....
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+class A:
+    def method(self):
+        print('method from a')
+
+class B:
+    def method(self):
+        print('method from b')
+
+class C(A, B):
+    pass
+
+c = C()
+c.method()
+```
+
+执行结果如下：
+
+```
+method from a
+```
+
+> 上面的代码中，当我们将`class C(A, B)`改为`class C(B, A)`时，执行结果为`method from b`；所以由此得出，多继承中，继承的顺序时从左至右的......
+
+现在我们将上面的代码再改成如下：
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+class A:
+    def method(self):
+        print('method from a')
+
+class B(A):
+    def method(self):
+        print('method from b')
+
+class C(A, B):
+    pass
+
+c = C()
+c.method()
+```
+
+> 上面我们定义了三个类`A`、`B`、`C`；类A中拥有`method`方法，类`B`中也拥有`method`方法，并且类`B`是继承至类`A`；然后我们定类`C`，依次继承类`A`和类`B`，我们再实例化类`C`，按理说类`C`实例化后会获得类`A`和类`B`中所有的属性和方法，当我们调用`c.method()`实例方法时，结果却抛出了异常，如下：
+
+```
+Traceback (most recent call last):
+  File "/root/python3/OOP_5.py", line 13, in <module>
+    class C(A, B):
+TypeError: Cannot create a consistent method resolution
+order (MRO) for bases A, B
+```
+
+> 这是为啥？异常说我们的`class C(A, B)`这里有问题，那么我们试着将`A`和`B`换个位置...
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+class A:
+    def method(self):
+        print('method from a')
+
+class B(A):
+    def method(self):
+        print('method from b')
+
+class C(B, A):
+    pass
+
+c = C()
+c.method()
+```
+
+执行结果如下：
+
+```
+method from b
+```
+
+> God.....
+
+这里就要涉及到`C3`算法了，我们先看下`C3`算法的`MERGE`规则....
+> 这个只针对`Python`...
+
+C3算法的MERGE步骤
+* 顺序遍历列表
+* 首元素满足以下调教，否则遍历下一个序列
+ - 在其他序列也是首元素
+ - 在其他序列里不存在
+* 从所有序列中移除此元素，合并到MRO序列中
+* 重复执行，直到所有序列为空或无法执行下去

@@ -111,4 +111,153 @@ class MyClass:
  - 私有：只在类内部可以访问
  - 公有：类外部可以访问，包括类里面
 
+我们再来验证下，看个例子...
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+class Class_A(object):
+    public_class_a_var = 'public class a var'
+    __pri_class_a_var = 'private class a var'
+
+    def __init__(self):
+        self.public_instance_a_var = 'public instance a var'
+        self.__pri_instalce_a_var = 'private instance a var'
+
+    def public_instance_a(self):
+        try:
+            print(self.public_instance_a_var)
+        except:
+            pass
+        try:
+            print(self.__pri_instalce_a_var)
+        except:
+            pass
+        try:
+            print(self.public_class_a_var)
+        except:
+            pass
+        try:
+            print(self.__pri_class_a_var)
+        except:
+            pass
+
+    def __pri_instance_a(self):
+        try:
+            print(self.public_instance_a_var)
+        except:
+            pass
+        try:
+            print(self.__pri_instalce_a_var)
+        except:
+            pass
+        try:
+            print(self.public_class_a_var)
+        except:
+            pass
+        try:
+            print(self.__pri_class_a_var)
+        except:
+            pass
+
+    @classmethod
+    def public_class_method(cls):
+        try:
+            print(cls.public_class_a_var)
+        except:
+            pass
+        try:
+            print(cls.__pri_class_a_var)
+        except:
+            pass
+        try:
+            print(cls.public_instance_a_var)
+        except:
+            pass
+        try:
+            print(cls.__pri_instalce_a_var)
+        except:
+            pass
+
+    @classmethod
+    def __pri_class_method(cls):
+        try:
+            print(cls.public_class_a_var)
+        except:
+            pass
+        try:
+            print(cls.__pri_class_a_var)
+        except:
+            pass
+        try:
+            print(cls.public_instance_a_var)
+        except:
+            pass
+        try:
+            print(cls.__pri_instalce_a_var)
+        except:
+            pass
+
+a1 = Class_A()
+```
+当我们依次执行下面的操作时...
+
+```
+执行 a1.public_instance_a()
+    输出：
+    	public instance a var
+	private instance a var
+	public class a var
+	private class a var
+	
+执行 a1.__pri_instance_a()
+    输出：
+    	Traceback (most recent call last):
+	  File "/root/python3/OOP_3.py", line 91, in <module>
+	    a1.__pri_instance_a()
+	AttributeError: 'Class_A' object has no attribute '__pri_instance_a'
+	
+执行 a1.public_class_method()
+    输出：
+    	public class a var
+	private class a var
+	
+执行 a1.__pri_class_method()
+    输出：
+    	Traceback (most recent call last):
+	  File "/root/python3/OOP_3.py", line 93, in <module>
+	    a1.__pri_class_method()
+	AttributeError: 'Class_A' object has no attribute '__pri_class_method'
+	
+执行 print(a1.public_class_a_var)
+    输出：
+    	public class a var
+    	
+执行 print(a1.__pri_class_a_var)
+    输出：
+	    	Traceback (most recent call last):
+	  File "/root/python3/OOP_3.py", line 95, in <module>
+	    print(a1.__pri_class_a_var)
+	AttributeError: 'Class_A' object has no attribute '__pri_class_a_var'
+	
+执行 print(a1.public_instance_a_var)
+    输出：
+    	public instance a var
+    	
+执行 print(a1.__pri_instance_a_var)
+    输出：
+    	Traceback (most recent call last):
+	  File "/root/python3/OOP_3.py", line 97, in <module>
+	    print(a1.__pri_instance_a_var)
+	AttributeError: 'Class_A' object has no attribute '__pri_instance_a_var'
+```
+
+所以，我们再次总结...
+* 共有实例方法可以访问共有和私有类变量，以及共有和私有实例变量
+* 私有方法和私有变量在类的外部都不能被访问
+* 共有方法和共有的变量在类外部都可以被访问
+* 共有类方法只能访问共有和私有的类变量
+
 ### 继承

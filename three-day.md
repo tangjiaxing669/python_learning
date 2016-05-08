@@ -432,3 +432,50 @@ C3算法的MERGE步骤
  - 在其他序列里不存在
 * 从所有序列中移除此元素，合并到MRO序列中
 * 重复执行，直到所有序列为空或无法执行下去
+
+```
+C(A, B) -> C 继承 A，也继承 B；下面的 O 是指默认继承的Object对象
+	[C] + merge(MRO(A), MRO(B), [A, B])
+	[C] + merge([A, O], [B, O], [A, B])
+	[C, A] + merge([O], [B, O], [B])
+	[C, A, B] + merge([O], [O])
+	[C, A, B, O]	所以 C 会依次继承 A B O
+
+	C(B, A) -> C 继承 B，再继承 A；下面的 O 是指默认继承的Object对象
+	[C] + merge(MRO(B), MRO(A), [B, A])
+	[C] + merge([B, O], [A, O], [B, A])
+	[C, B] + merge([O], [A, O], [A])
+	[C, B, A] + merge([O], [O])
+	[C, B, A, O]	所以 C 会依次继承 B A O
+
+	C(A, B), B(A) -> B 继承 A，C 先继承 A，再继承 B
+	我们可以先算出 B(A)
+	[B] + merge(MRO(A), [A])
+	[B] + merge([A, O], [A])
+	[B, A] + merge([O])
+	[B, A, O]
+	再算出 C(A, B)
+	[C] + merge(MRO(A), MRO(B), [A, B])
+	[C] + merge([A, O], [B, A, O], [A, B])
+	注意：MRO(B) 就等于上面算出来的 [B, A, O]
+	注意：这里的 A 在三个序列中都出现，但不是首元素，B 也一样
+	      所以这里的继承会抛出异常，
+	      raise TypeError
+
+	      Traceback (most recent call last):
+	        File "/root/python3/OOP_3.py", line 13, in <module>
+	          class Class_C(Class_A, Class_B):
+	      TypeError: Cannot create a consistent method resolution
+	      order (MRO) for bases Class_A, Class_B
+	
+	C(B, A), B(A) -> B 继承 A，C 先继承 B，再继承 A
+	[C] + merge(([B] + merge(MRO(A), [A])), MRO(A), [B, A])
+	[C] + merge(([B] + merge([A, O], [A])), [A, O], [B, A])
+	[C] + merge(([B, A], merge([O])), [A, O], [B, A])
+	[C] + merge([B, A, O], [A, O], [B, A])
+	[C, B] + merge([A, O], [A, O], [A])
+	[C, B, A] + merge([O], [O])
+	[C, B, A, O]
+	注意：上面的 B(A) 得出下面的 [B, A, O]
+	所以这里的继承关系是正确的，不会抛出异常
+```

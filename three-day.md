@@ -434,7 +434,7 @@ C3算法的MERGE步骤
 * 重复执行，直到所有序列为空或无法执行下去
 
 ```
-C(A, B) -> C 继承 A，也继承 B；下面的 O 是指默认继承的Object对象
+	C(A, B) -> C 继承 A，也继承 B；下面的 O 是指默认继承的Object对象
 	[C] + merge(MRO(A), MRO(B), [A, B])
 	[C] + merge([A, O], [B, O], [A, B])
 	[C, A] + merge([O], [B, O], [B])

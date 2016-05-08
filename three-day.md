@@ -306,4 +306,4 @@ door = Lock_Door('123', 'open', False)
 door.lock()
 ```
 
-> 在上面的例子中，我们定义了一个`Door`类，它有两个属性，`number`和`status`，分别指**门牌号**和**门状态**，**门状态**仅有开和关两种状态；然后分别定义了两个实例方法，`open_door`和`close_door`；我们还定义了一个`Lock_Door`的类，它继承了`Door`这个类，并且自己还拥有一个独立的属性`lock_status`，代表门有没有被上锁，然后还拥有一个`lock`的方法；*（`super`语句仅用来初始化父类的；上面的`super(Lock_Door, self).__init__(number, status)`；`super(Lock_Door, self).open_door()`代表调用父类的方法）*
+> 在上面的例子中，我们定义了一个`Door`类，它有两个属性，`number`和`status`，分别指**门牌号**和**门状态**，**门状态**仅有开和关两种状态；然后分别定义了两个实例方法，`open_door`和`close_door`；我们还定义了一个`Lock_Door`的类，它继承了`Door`这个类，并且自己还拥有一个独立的属性`lock_status`，代表门有没有被上锁，然后还拥有一个`lock`的方法；*（`super`语句仅用来初始化父类的；上面的`super(Lock_Door, self).__init__(number, status)`代表初始化父类`Door`；`super(Lock_Door, self).open_door()`代表调用父类的`open_door()`方法）*

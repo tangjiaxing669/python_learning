@@ -479,3 +479,147 @@ C3算法的MERGE步骤
 	注意：上面的 B(A) 得出下面的 [B, A, O]
 	所以这里的继承关系是正确的，不会抛出异常
 ```
+
+### 对象的创建与销毁
+
+- `__new__`创建对象
+- `__init__`初始化对象
+- `__del__`销毁对象的时候调用
+
+如下代码：
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+class Test1:
+    def __new__(cls):
+        print('call __new__')
+        return object.__new__(cls)
+
+    def __init__(self):
+        print('call __init___')
+
+    def method(self):
+        print('call method')
+
+    def __del__(self):
+        print('call __del__')
+
+c = Test1()
+```
+
+当运行以上代码时，输出如下：
+
+```
+call __new__
+call __init___
+call __del__
+```
+
+> 也就是当你定义了`__new__`、`__init__`、`__del__`这三种方法时，程序默认都会执行依次执行，程序的普通方法还是正常使用；而当你使用`del c`来删除这个实例的时候，程序才会调用`__del__`方法.
+
+### 可视化对象
+
+我们再来看看类中`__repr__`、`__str__`和`__bytes__`的作用...
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+class Test2:
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return self.name
+
+a = Test2('Jason tom')
+print(a)
+```
+
+默认情况下，当我们实例化`a = Test2`时，`a`已经被实例化为一个对象了，此时你要执行`print(a)`会得到一个类似`<__main__.a instance at 0x2395518>`这样的值，如果你想改变这个值，那么`__repr__`可以帮到你；现在我们执行上面的代码...
+
+```
+Jason tom
+```
+
+其结果将会变成上面的那样；现在我们将上面的代码改成如下：
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+class Test2:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return 'call __str__ name is {0}'.format(self.name)
+
+    def __bytes__(self):
+        return 'cal __bytes__ name is {0}'.format(self.name).encode('utf-8')
+
+a = Test2('Jason tom')
+print(str(a))
+print(bytes(a))
+```
+
+> 注意，上面的`__str__`返回的是一个`str`类型的值，`__bytes__`返回的是`bytes`类型的值(需要解码)；
+
+### 比较运算符重载
+
+当我们想要对一个实例化的对象进行比较的时候，那么下面的代码可以帮到你...
+
+```
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+__author__ = "Jason Tom"
+
+
+class Person:
+    def __init__(self, age):
+        self.age = age
+
+    def __lt__(self, other):
+        print('lt')
+        return self.age < other.age
+
+    def __le__(self, other):
+        print('le')
+        return self.age <= other.age
+
+    def __eq__(self, other):
+        print('eq')
+        return self.age == other.age
+
+    def __ne__(self, other):
+        print('ne')
+        return self.age != other.age
+
+    def __gt__(self, other):
+        print('gt')
+        return self.age > other.age
+
+    def __ge__(self, other):
+        print('ge')
+        return self.age >= other.age
+
+a = Person(18)
+b = Person(20)
+
+print(a > b)
+print(a < b)
+```
+
+执行结果如下：
+
+```
+gt
+False
+lt
+True
+```

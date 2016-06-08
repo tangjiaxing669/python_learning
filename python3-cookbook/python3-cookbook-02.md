@@ -141,6 +141,26 @@ addresses = [
 
 > 注意，`fnmatch()`函数匹配能力介于简单的字符串方法和强大的正则表达式之间。如果在数据处理操作中只需要简单的通配符就能完成的时候，这通常是一个比较合理的方案。
 
+> 使用`fnmatch.filter()`对一个`list`进行过滤；如下：
+
+```
+import fnmatch
+import os
+
+for dirpath, dirnames, filenames in os.walk('/root/python3/logscan'):
+    for i in fnmatch.filter(filenames, '*.py'):
+        print(os.path.join(dirpath, i))
+```
+
+执行结果如下：
+
+```
+/root/python3/logscan/app.py
+/root/python3/logscan/logscan/__init__.py
+/root/python3/logscan/logscan/match.py
+/root/python3/logscan/logscan/watch.py
+```
+
 ### 字符串匹配和搜索
 
 > 对于复杂的匹配需要使用正则表达式和`re`模块。为了解释正则表达式的基本原理，假设你想匹配数字个是的日期字符串，比如`11/27/2012`，你可以这样做：

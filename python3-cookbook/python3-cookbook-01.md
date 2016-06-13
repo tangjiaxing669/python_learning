@@ -34,7 +34,7 @@
 
 示例代码：
 
-```
+```python
 >>> p = (4, 5)
 >>> x, y, z = p
 Traceback (most recent call last):
@@ -47,7 +47,7 @@ ValueError: need more than 2 values to unpack
 
 代码示例：
 
-```
+```python
 >>> s = 'Hello'
 >>> a, b, c, d, e = s
 >>> a
@@ -63,7 +63,7 @@ ValueError: need more than 2 values to unpack
 
 代码示例：
 
-```
+```python
 >>> data = [ 'ACME', 50, 91.1, (2012, 12, 21) ]
 >>> _, shares, price, _ = data
 >>> shares
@@ -77,7 +77,7 @@ ValueError: need more than 2 values to unpack
 
 > 还有一种情况，假设你现在有一些用户的记录列表，每条记录包含一个名字、邮件，接着就是不确定数量的电话号码。可以像下面这样分解这些记录：
 
-```
+```python
 >>> record = ('Dave', 'dave@example.com', '773-555-1212', '847-555-1212')
 >>> name, email, *phone_numbers = record
 >>> name
@@ -91,7 +91,7 @@ ValueError: need more than 2 values to unpack
 
 > 注意，上面解压出的`phone_numbers`变量永远都是列表类型，不管解压的电话号码数量是多少(包括0个)。所以，任何使用到`phone_numbers`变量的代码就不需要作多余的类型检查去确认它是否是列表类型了。
 
-```
+```python
 >>> *trailing, current = [10, 8, 7, 1, 9, 5, 10, 3]
 >>> trailing
 [10, 8, 7, 1, 9, 5, 10]
@@ -123,7 +123,7 @@ for tag, *args in records:
 
 > 星号同样可以用在字符串的分割中，如下：
 
-```
+```python
 >>> line = 'nobody:*:-2:-2:Unprivileged User:/var/empty:/usr/bin/false'
 >>> uname, *fields, homedir, sh = line.split(':')
 >>> uname
@@ -138,7 +138,7 @@ for tag, *args in records:
 > 有时候，你向解压一些元素后丢弃他们，你不能简单就使用`*`，但是你可以使用一个普通的废弃名称，比如`_`或者`ign`。
 
 代码示例：
-```
+```python
 >>> record = ('ACME', 50, 123.45, (12, 18, 2012))
 >>> name, *_, (*_, year) = record
 >>> name
@@ -154,7 +154,7 @@ for tag, *args in records:
 
 代码示例：
 
-```
+```python
 >>> from collections import deque
 >>> q = deque(maxlen=3)
 >>> q.append(1)
@@ -174,7 +174,7 @@ deque([3, 4, 5], maxlen=3)
 
 代码示例：
 
-```
+```python
 >>> q = deque()
 >>> q.append(1)
 >>> q.append(2)
@@ -200,7 +200,7 @@ deque([4, 1, 2])
 
 > 你可以很方便的使用`collections`模块中的`defaultdict`来构造这样的字典。`defaultdict`的一个特征时它会自动初始化每个`key`刚开始对应的值，所以你只需要关注添加元素操作就可以了。比如：
 
-```
+```python
 from collections import defaultdict
 
 d = defaultdict(list)
@@ -222,7 +222,7 @@ d['b'].add(4)
 
 > 为了能控制一个字典中元素的顺序，你可以使用`collections`模块中的`OrderedDict`类。在迭代操作的时候它会保持元素被插入时的顺序，示例如下：
 
-```
+```python
 from collections import OrderedDict
 def ordered_dict():
     d = OrderedDict()
@@ -237,7 +237,7 @@ def ordered_dict():
 
 > 当你想要构建一个将来需要序列化或编码成其它个时的映射的时候，`OrderedDict`是非常有用的。比如，你想精确控制以JSON编码后子段的顺序，你可以先使用`OrderedDict`来构建这样的数据：
 
-```
+```python
 >>> import json
 >>> json.dumps(d)
 '{"foo": 1, "bar": 2, "spam": 3, "grok": 4}'
@@ -250,7 +250,7 @@ def ordered_dict():
 
 > 为了对字典值执行计算操作，通常需要使用`zip()`函数先将键和值反转过来。比如，下面是查找最小值和最大值：
 
-```
+```python
 prices = {
     'ACME': 45.23,
     'AAPL': 612.78,
@@ -267,7 +267,7 @@ max_price = max(zip(prices.values(), prices.keys()))
 
 类似的，可以使用`sorted()`函数来沛旭字典数据：
 
-```
+```python
 prices_sorted = sorted(zip(prices.values(), prices.keys()))
 # prices_sorted is [(10.75, 'FB'), (37.2, 'HPQ'),
 #                   (45.23, 'ACME'), (205.55, 'IBM'),
@@ -276,7 +276,7 @@ prices_sorted = sorted(zip(prices.values(), prices.keys()))
 
 > 需要注意的是，在`Python3`中，`zip()`函数创建的是一个只能访问一次的迭代器。比如，下面的代码就会产生错误：
 
-```
+```python
 prices_and_names = zip(prices.values(), prices.keys())
 print(min(prices_and_names)) # OK
 print(max(prices_and_names)) # ValueError: max() arg is an empty sequence
@@ -284,20 +284,20 @@ print(max(prices_and_names)) # ValueError: max() arg is an empty sequence
 
 > 另一个方法，你可以在`min()`和`max()`函数中提供`key`函数参数来获取最小值或最大值对应的键的信息。比如：
 
-```
+```python
 min(prices, key=lambda k: prices[k]) # Returns 'FB'
 max(prices, key=lambda k: prices[k]) # Returns 'AAPL'
 ```
 
 但是，如果还想要得到最小值，你又得执行一次查找操作，比如：
 
-```
+```python
 min_value = prices[min(prices, key=lambda k: prices[k])]
 ```
 
 > 注意，当多个实体拥有相同的值的时候，键会决定返回结果。比如，在执行`min()`和`max()`操作的时候，如果恰巧最小或最大值有重复，那么拥有最小或最大键的实体会返回：
 
-```
+```python
 >>> prices = { 'AAA' : 45.23, 'ZZZ': 45.23 }
 >>> min(zip(prices.values(), prices.keys()))
 (45.23, 'AAA')

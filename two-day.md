@@ -6,7 +6,7 @@
 在`for`循环和`while`循环中，如果循环体遇到了`break`语句，则`for`循环和`while`循环退出后不会执行`else`子句；
 如果`for`循环和`while`循环是正常退出的（没有遇到`break`语句），则`else`子句会被执行；
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -21,7 +21,7 @@ else:
 
 执行结果如下：
 
-```
+```python
 i => 0
 i => 1
 i => 2
@@ -32,7 +32,7 @@ break
 
 现在我们将上面的代码再改成如下：
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -47,7 +47,7 @@ else:
 
 执行结果如下：
 
-```
+```python
 i => 0
 i => 1
 i => 2
@@ -60,7 +60,7 @@ i => 2
 ### Python3中的unpack
 > 先看个例子...
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -101,7 +101,7 @@ print('l => {0}'.format(l))
 
 以上代码输出如下：
 
-```
+```python
 x => 1
 y => [2, 3, 4, 5]
 
@@ -137,7 +137,7 @@ l => 1
 
 - print style format
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -153,7 +153,7 @@ print('i love %s, %s is my first lang.' % ('python', 'python'))
 
 执行结果如下：
 
-```
+```python
 i love python
 i love python
 i love python, python is my first lang.
@@ -183,7 +183,7 @@ i love python, python is my first lang.
 
 > 函数的参数可以是另一个函数；如下
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -211,14 +211,14 @@ print('cmp2 => ', sort(cmp2, 3, 1, 2, 5))   # 将cmp2函数名传递过去
 
 执行结果如下：
 
-```
+```python
 cmp1 =>  [5, 3, 2, 1]
 cmp2 =>  [1, 2, 3, 5]
 ```
 
 > 注意，上面的`cmp`函数可以使用`lambda`函数来代替，以便见减少代码量，如下：
 
-```
+```python
 print('cmp1 => ', sort(lambda x,y:x>=y, 3, 1, 2, 5))
 print('cmp2 => ', sort(lambda x,y:x<=y, 3, 1, 2, 5))
 ```
@@ -227,7 +227,7 @@ print('cmp2 => ', sort(lambda x,y:x<=y, 3, 1, 2, 5))
 
 > 如下：
 
-```
+```python
 __author__ = 'bbk'
 # -*- coding:utf-8 -*-
 
@@ -246,7 +246,7 @@ print('inc2(5) => {0}'.format(inc2(5)))
 
 执行结果如下：
 
-```
+```python
 inc1_type => <class 'function'>
 inc1(5) => 6
 inc2_type => <class 'function'>
@@ -255,14 +255,14 @@ inc2(5) => 7
 
 > 注意：上面的函数调用可以使用如下简单的方式来调用；
 
-```
+```python
 make_inc(1)(5)
 ```
 
 结果依然返回`6`；这被称为`柯里化`；类似于`f(x, y) -> g(x)(y)`
 再看一个例子：
 
-```
+```python
 def bigger(x):
     def inner_bigger(y):
         return y > x
@@ -274,7 +274,7 @@ print(list(filter(bigger(3), range(10))))
 
 执行结果如下：
 
-```
+```python
 [6, 7, 8, 9]
 [4, 5, 6, 7, 8, 9]
 ```
@@ -285,7 +285,7 @@ print(list(filter(bigger(3), range(10))))
 
 我们再详细的解剖下上面的函数...
 
-```
+```python
 def bigger(x):
     def inner_bigger(y):
         return y > x
@@ -313,7 +313,7 @@ print('list(filter(bigger_inner, range(10))) => {0}'.format(list(filter(bigger_i
 
 执行结果如下：
 
-```
+```python
 [6, 7, 8, 9]
 [4, 5, 6, 7, 8, 9]
 bigger_inner => <function bigger.<locals>.inner_bigger at 0x00000000021FD9D8>
@@ -327,7 +327,7 @@ list(filter(bigger_inner, range(10))) => [6, 7, 8, 9]
 
 > 先看例子...
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -354,7 +354,7 @@ conn.close()
 
 执行结果如下：
 
-```
+```python
 ('root', 'localhost', '*84BB5DF4823DA319BBF86C99624479A198E6EEE9')
 ('root', '127.0.0.1', '*84BB5DF4823DA319BBF86C99624479A198E6EEE9')
 ```
@@ -365,7 +365,7 @@ conn.close()
 
 > 我们再来看一个简单的例子.
 
-```
+```python
 __author__ = 'Jason tom'
 # -*- coding:utf-8 -*-
 
@@ -388,7 +388,7 @@ args_1(4, 5, 6, 7)
 
 执行结果如下：
 
-```
+```python
 a is 4
 b is 5
 c is 6
@@ -405,7 +405,7 @@ g is 3
 > 先看个例子...
 > 测试某个函数执行所需的时间...
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -433,14 +433,14 @@ timeit(sleep)(3)
 
 执行结果如下：
 
-```
+```python
 3.001720666885376
 ```
 
 > 注意下上面函数执行的调用方式`timeit(sleep)(3)`，其实这种方式就是`装饰器`的执行原理；
 > 我们再看看上面的函数改用`装饰器`的调用方式.
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -471,7 +471,7 @@ sleep(3)
 
 执行结果如下：
 
-```
+```python
 3.001720666885376
 ```
 
@@ -492,7 +492,7 @@ sleep(3)
 
 示例：
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -510,7 +510,7 @@ print('time.clock() => {0}'.format(time.clock() - start))
 
 执行结果如下：
 
-```
+```python
 time.time() => 3.003103733062744
 time.clock() => 0.0
 ```
@@ -519,7 +519,7 @@ OK，懂了！
 
 > 在来看一个例子...
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -555,7 +555,7 @@ sleep(3)
 
 执行结果如下：
 
-```
+```python
 3.0025980472564697
 ```
 
@@ -563,7 +563,7 @@ sleep(3)
 
 > 用在权限控制方面的装饰器.
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -598,14 +598,14 @@ private_operate('tangjia')
 
 执行结果如下：
 
-```
+```python
 要执行的敏感操作...
 Not Allow...
 ```
 
 现在我们来看下`private_operate()`的 `__name__`和`__doc__`属性....
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -635,13 +635,13 @@ print(private_operate.__doc__)
 
 结果如下：
 
-```
+```python
 wrap
 None
 ```
 看到`private_operate.__name__`的输出为`wrap`，`private_operate.__doc__`的输出为`None`；这是为啥？我们明明执行的是`private_operate`这个函数；原因就是我们用了`装饰器`给函数进行包装了；我们在执行`private_operate()`函数时，实际是执行的`wrap()`这个函数，所以我们将代码改成下面的就可以了...
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -673,7 +673,7 @@ print(private_operate.__doc__)
 
 执行结果如下：
 
-```
+```python
 private_operate
 
     :Just test
@@ -682,7 +682,8 @@ private_operate
 ```
 
 这样就完美了？但是一个函数定以后，它的默认属性是非常多的，比如上面的`private_operate()`函数，他的属性包括了如下：
-```
+
+```python
 ['__call__',
  '__class__',
  '__closure__',
@@ -715,10 +716,11 @@ private_operate
  'func_globals',
  'func_name']
 ```
+
 这个时候难道我们要一次去给每一个属性赋值改变吗？类似`wrap.__doc__ = func.__doc__`；
 这样肯定是不合理的，Python给我们提供了一个内置的函数装饰器，`functools.wraps`，它可以帮助完成上面的一切.
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -751,7 +753,7 @@ print(private_operate.__doc__)
 
 执行结果如下：
 
-```
+```python
 private_operate
 
     :Just test

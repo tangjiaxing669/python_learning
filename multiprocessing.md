@@ -8,7 +8,7 @@ Unix/Linux操作系统提供了一个`fork()`系统调用，它非常特殊。�
 
 Python的`os`模块封装了常见的系统调用，其中就包括`fork`，可以在python程序中轻松创建子进程：
 
-```
+```python
 #multiprocessing.py
 import os
 
@@ -22,7 +22,7 @@ else:
 
 运行结果如下：
 
-```
+```python
 Process (35291) start...
 I (35291) just created a child process (35292).
 I am child process (35292) and my parent is 35291.
@@ -40,7 +40,7 @@ I am child process (35292) and my parent is 35291.
 
 `multiprocessing`模块提供了一个`Process`来代表一个进程对象，下面的例子演示了启动一个子进程并等待其结束：
 
-```
+```python
 from multiprocessing import Process
 import os
 
@@ -59,7 +59,7 @@ if __name__ == '__main__':
 
 执行结果如下：
 
-```
+```python
 Parent process 35300.
 Process will start.
 Run child process test (35302)...
@@ -74,7 +74,7 @@ Process end.
 
 如果要启动大量的子进程，可以用进程池的方式批量创建子进程：
 
-```
+```python
 from multiprocessing import Pool
 import os, time, random
 
@@ -98,7 +98,7 @@ if __name__ == '__main__':
 
 执行结果如下：
 
-```
+```python
 Parent process 35323.
 Waiting for all subprocesses done...
 Run task 0 (35324)...
@@ -130,7 +130,7 @@ All subprocesses done.
 
 我们以`Queue`为例，在父进程中创建两个子进程，一个往`Queue`里写数据，一个从`Queue`里读数据：
 
-```
+```python
 from multiprocessing import Queue,Process
 import random,time,os
 
@@ -164,7 +164,7 @@ if __name__ == '__main__':
 
 运行结果如下：
 
-```
+```python
 Put A to queue.
 get A from queue.
 Put B to queue.

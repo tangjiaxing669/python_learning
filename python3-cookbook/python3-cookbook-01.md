@@ -1,6 +1,12 @@
 # Python3-cookbook-01
 
-[toc]
+```seq
+Title: Here is a title
+A->B: Normal line
+B-->C: Dashed line
+C->>D: Open arrow
+D-->>A: Dashed open arrow
+```
 
 ### 解压序列赋值给多个变量
 

@@ -33,7 +33,7 @@
 
 先来看个列子...
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -80,7 +80,7 @@ instance.class_method()
 
 再看一个静态方法的例子...
 
-```
+```python
 class MyClass:
     __vars = 5
     @staticmethod
@@ -113,7 +113,7 @@ class MyClass:
 
 我们再来验证下，看个例子...
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -204,7 +204,7 @@ a1 = Class_A()
 ```
 当我们依次执行下面的操作时...
 
-```
+```python
 执行 a1.public_instance_a()
     输出：
 	public instance a var
@@ -264,7 +264,7 @@ a1 = Class_A()
 
 > 继承分为但继承和多继承；我们先看一个单继承的例子...
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -307,7 +307,7 @@ door.lock()
 
 现在再来看一个多继承的例子...
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -332,7 +332,7 @@ c.method_from_b()
 
 > 我们再看一个例子，将上面的代码该一改....
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -354,7 +354,7 @@ c.method()
 
 执行结果如下：
 
-```
+```python
 method from a
 ```
 
@@ -362,7 +362,7 @@ method from a
 
 现在我们将上面的代码再改成如下：
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -384,7 +384,7 @@ c.method()
 
 > 上面我们定义了三个类`A`、`B`、`C`；类A中拥有`method`方法，类`B`中也拥有`method`方法，并且类`B`是继承至类`A`；然后我们定类`C`，依次继承类`A`和类`B`，我们再实例化类`C`，按理说类`C`实例化后会获得类`A`和类`B`中所有的属性和方法，当我们调用`c.method()`实例方法时，结果却抛出了异常，如下：
 
-```
+```python
 Traceback (most recent call last):
   File "/root/python3/OOP_5.py", line 13, in <module>
     class C(A, B):
@@ -394,7 +394,7 @@ order (MRO) for bases A, B
 
 > 这是为啥？异常说我们的`class C(A, B)`这里有问题，那么我们试着将`A`和`B`换个位置...
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -416,7 +416,7 @@ c.method()
 
 执行结果如下：
 
-```
+```python
 method from b
 ```
 
@@ -433,7 +433,7 @@ C3算法的MERGE步骤
 * 从所有序列中移除此元素，合并到MRO序列中
 * 重复执行，直到所有序列为空或无法执行下去
 
-```
+```python
 	C(A, B) -> C 继承 A，也继承 B；下面的 O 是指默认继承的Object对象
 	[C] + merge(MRO(A), MRO(B), [A, B])
 	[C] + merge([A, O], [B, O], [A, B])
@@ -488,7 +488,7 @@ C3算法的MERGE步骤
 
 如下代码：
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -512,7 +512,7 @@ c = Test1()
 
 当运行以上代码时，输出如下：
 
-```
+```python
 call __new__
 call __init___
 call __del__
@@ -524,7 +524,7 @@ call __del__
 
 我们再来看看类中`__repr__`、`__str__`和`__bytes__`的作用...
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -542,13 +542,13 @@ print(a)
 
 默认情况下，当我们实例化`a = Test2`时，`a`已经被实例化为一个对象了，此时你要执行`print(a)`会得到一个类似`<__main__.a instance at 0x2395518>`这样的值，如果你想改变这个值，那么`__repr__`可以帮到你；现在我们执行上面的代码...
 
-```
+```python
 Jason tom
 ```
 
 其结果将会变成上面的那样；现在我们将上面的代码改成如下：
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -574,7 +574,7 @@ print(bytes(a))
 
 当我们想要对一个实例化的对象进行比较的时候，那么下面的代码可以帮到你...
 
-```
+```python
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ = "Jason Tom"
@@ -617,7 +617,7 @@ print(a < b)
 
 执行结果如下：
 
-```
+```python
 gt
 False
 lt

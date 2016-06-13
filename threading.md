@@ -9,7 +9,7 @@ Python的标准库提供了两个模块：`thread`和`threading`，`thread`是�
 
 启动一个线程就是把一个函数传入并创建`Thread`实例，然后调用`start()`开始执行：
 
-```
+```python
 import time, threading
 
 # 新线程执行的代码:
@@ -31,7 +31,7 @@ print 'thread %s ended.' % threading.current_thread().name
 
 执行结果如下：
 
-```
+```python
 thread MainThread is running...
 thread LoopThread is running...
 thread LoopThread >>> 1
@@ -51,7 +51,7 @@ thread MainThread ended.
 
 来看看多个线程同时操作一个变量怎么把内容给改乱了：
 
-```
+```python
 import time, threading
 
 # 假定这是你的银行存款:
@@ -78,7 +78,7 @@ print balance
 
 执行结果如下：
 
-```
+```python
 [root@localhost thread]# python  test.py 
 58
 [root@localhost thread]# python  test.py 
@@ -97,7 +97,7 @@ print balance
 
 原因是因为高级语言的一条语句在CPU执行时是若干条语句，即使是一个简单的计算：
 
-```
+```python
 balance = balance + n
 ```
 
@@ -108,14 +108,14 @@ balance = balance + n
 
 也就是可以看成：
 
-```
+```python
 x = balance + n
 balance = x
 ```
 
 由于x是局部变量，两个线程各自都有自己的x，当代码正常执行时：
 
-```
+```python
 初始值 balance = 0
 
 t1: x1 = balance + 5 # x1 = 0 + 5 = 5
@@ -133,7 +133,7 @@ t2: balance = x2     # balance = 0
 
 但是t1和t2是交替运行时，如果操作系统以下面的顺序执行t1、t2：
 
-```
+```python
 初始值 balance = 0
 
 t1: x1 = balance + 5  # x1 = 0 + 5 = 5
@@ -157,7 +157,7 @@ t2: balance = x2      # balance = -5
 
 如果我哦们要确保`balance`计算正确，就要给`change_it()`上一把锁，当某个西西安城开始执行`change_it()`时，我们说，该线程因为获得了锁，因此其他线程不能同时执行`change_it()`，只能等待，知道锁被释放后，获得该锁以后才能改。由于锁只有一个，无论多少线程，同一时刻最多只有一个线程持有该锁，所以，不会造成修改的冲突。创建一个锁就是通过`threading.Lock()`来实现：
 
-```
+```python
 balance = 0
 lock = threading.Lock()
 
@@ -191,7 +191,7 @@ def run_thread(n):
 
 试试用Python写个死循环：
 
-```
+```python
 import threading, multiprocessing
 
 def loop():

@@ -4,7 +4,7 @@
 
 代码示例：
 
-```
+```python
 >>> p = (4, 5)
 >>> x, y = p
 >>> x
@@ -101,7 +101,7 @@ ValueError: need more than 2 values to unpack
 
 > 值的注意的是，星号表达是在迭代元素为可变长元组的序列时时很有用的。比如，下面是一个带有标签的元组序列：
 
-```
+```python
 records = [
     ('foo', 1, 2),
     ('bar', 'hello'),

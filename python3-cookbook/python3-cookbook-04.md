@@ -5,7 +5,7 @@
 > 你构建了一个自定义容器对象，里面包含有列表、元组或其它可迭代对象。你想直接在你的这个新容器对象上执行迭代操作。
 > 实际上你只需要定义一个`__iter__()`方法，将迭代操作代理到容器内部的对象上去。比如：
 
-```
+```python
 class Node:
     def __init__(self, value):
         self._value = value
@@ -36,7 +36,7 @@ if __name__ == '__main__':
 > 而`__repr__()`方法是获取被实例化后对象的内容。
 > 上面的代码中，如果你不加`__repr__()`方法，那么执行代码后的结果将会变成如下：
 
-```
+```python
 <__main__.Node object at 0x7f0c26eb1f98>
 <__main__.Node object at 0x7f0c26eb1fd0>
 <__main__.Node object at 0x7f0c26eb1f60>
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 > 目前为止，在一个对象上实现迭代最简单的方式是使用一个生成器函数。
 > 在上一节中，使用`Node`类来表示树形数据结构。你可能想实现一个以深度优先方式遍历树形节点的生成器。如下：
 
-```
+```python
 class Node:
     def __init__(self, value):
         self._value = value
@@ -89,7 +89,7 @@ if __name__ == '__main__':
 
 > 这里的`yield from`很特别，它允许你从另一个可迭代的对象中`yield`数据，如下：
 
-```
+```python
 >>> def g(x):
 ...     yield from range(x) 
 ...
@@ -100,7 +100,7 @@ if __name__ == '__main__':
 
 另一个例子：
 
-```
+```python
 >>> def a(x): 
 ...     yield from range(x)
 ... 
@@ -116,7 +116,7 @@ if __name__ == '__main__':
 
 > 很多程序员并不知道可以通过在自定义类上实现`__reversed__()`方法来实现反向迭代。比如：
 
-```
+```python
 class Countdown:
     def __init__(self, start):
         self.start = start
@@ -149,7 +149,7 @@ for rr in Countdown(30):
 
 > 为了同时迭代多个序列，最简单直接的方法就是使用`zip()`函数，比如：
 
-```
+```python
 >>> xpts = [1, 5, 4, 2, 10, 7]
 >>> ypts = [101, 78, 37, 15, 62, 99]
 >>> for x, y in zip(xpts, ypts):
@@ -166,7 +166,7 @@ for rr in Countdown(30):
 
 > 注意，`zip(a, b)`会生成一个可返回元组`(x, y)`的迭代器，其中 x 来子 a，y 来值 b。一旦其中某个序列到底结尾，迭代宣告结束。因此迭代长度跟参数中最短序列长度一致。
 
-```
+```python
 >>> a = [1, 2, 3]
 >>> b = ['w', 'x', 'y', 'z']
 >>> for i in zip(a,b):
@@ -180,7 +180,7 @@ for rr in Countdown(30):
 
 > 如果这不是你想要的效果，那么还可以使用`itertools.zip_longest()`函数来代替。比如：
 
-```
+```python
 >>> from itertools import zip_longest
 >>> for i in zip_longest(a,b):
 ...     print(i)
@@ -202,7 +202,7 @@ for rr in Countdown(30):
 
 > 最后强调一点就是，`zip()`会创建一个迭代器来作为结果返回。如果你需要将结对的值存储在列表中，要使用`list()`函数，比如：
 
-```
+```python
 >>> zip(a, b)
 <zip object at 0x1007001b8>
 >>> list(zip(a, b))
@@ -212,7 +212,7 @@ for rr in Countdown(30):
 
 > 注意，`zip()`函数生成是一个一次性的迭代器。
 
-```
+```python
 >>> a = [1,2,3]
 >>> b = ['w', 'x', 'y', 'z']
 >>> c = zip(a, b)
@@ -226,7 +226,7 @@ for rr in Countdown(30):
 
 > `itertools.chain()`方法可以用来简化这个任务。它接受一个可迭代对象列表作为输入，并返回一个迭代器，有效的屏蔽掉爱多个容器中迭代细节。
 
-```
+```python
 >>> from itertools import chain
 >>> a = [1, 2, 3, 4]
 >>> b = ['x', 'y', 'z']
@@ -249,7 +249,7 @@ z
 
 > 一个常见的IO操作程序可能会像下面这样：
 
-```
+```python
 CHUNKSIZE = 8192
 
 def reader(s):
@@ -262,7 +262,7 @@ def reader(s):
 
 > 这种代码通常可以使用`iter()`来代替，如下：
 
-```
+```python
 def reader2(s):
     for chunk in iter(lambda: s.recv(CHUNKSIZE), b''):
         pass
@@ -271,7 +271,7 @@ def reader2(s):
 
 > 如果你怀疑它到底能不能正常工作，可试验下一个简单的列子。比如：
 
-```
+```python
 >>> import sys
 >>> f = open('/etc/passwd')
 >>> for chunk in iter(lambda: f.read(10), ''):

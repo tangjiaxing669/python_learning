@@ -6,7 +6,7 @@
 
 > 下面演示如何将一个Python数据结构转换为JSON：
 
-```
+```python
 import json
 
 data = {
@@ -20,13 +20,13 @@ json_str = json.dumps(data)
 
 > 下面演示如果将一个JSON编码的字符串转换回一个Python数据结构：
 
-```
+```python
 data = json.loads(json_str)
 ```
 
 > 如果你要处理的是文件而不是字符串，你可以使用`json.dump()`和`json.load()`来编码和解码JSON数据。例如：
 
-```
+```python
 # Writing JSON data
 with open('data.json', 'w') as f:
     json.dump(data, f)
@@ -40,7 +40,7 @@ with open('data.json', 'r') as f:
 
 > JSON编码的格式对于Python语法而已几乎是完全一样的，除了一些小的差异之外。 比如，True会被映射为true，False被映射为false，而None会被映射为null。 下面是一个例子，演示了编码后的字符串效果：
 
-```
+```python
 >>> json.dumps(False)
 'false'
 >>> d = {'a': True,
@@ -55,7 +55,7 @@ with open('data.json', 'r') as f:
 
 > 在编码JSON的时候，还有一些选项很有用。如果你像获得漂亮的格式化字符串后输出，可以使用`json.dumps()`的`indent`参数。它会使得输出和`pprint()`函数效果类似。比如：
 
-```
+```python
 >>> print(json.dumps(data))
 {"price": 542.23, "name": "ACME", "shares": 100}
 >>> print(json.dumps(data, indent=4))

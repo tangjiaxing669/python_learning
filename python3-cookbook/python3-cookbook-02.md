@@ -4,7 +4,7 @@
 
 > `string`对象的`split()`方法只适应于非常简单的字符串分割情形，它并不允许有多个分隔符或这是分隔符周围不确定的空格。当你需要更加灵活的切割字符串的时候，最好使用`re.split()`方法：
 
-```
+```python
 >>> line = 'asdf fjdk; afed, fjek,asdf, foo'
 >>> import re
 >>> re.split(r'[;,\s]\s*', line)
@@ -15,7 +15,7 @@
 
 > 当使用`re.split()`函数时候，需要特别注意的是正则表达是中是否包含一个括号捕获分组。如果使用捕获分组，那么被匹配的文本也将出现在结果列表中。比如，观察以下这段代码运行后的结果：
 
-```
+```python
 >>> fields = re.split(r'(;|,|\s)\s*', line)
 >>> fields
 ['asdf', ' ', 'fjdk', ';', 'afed', ',', 'fjek', ',', 'asdf', ',', 'foo']
@@ -24,7 +24,7 @@
 
 > 如果你不想保留分割字符串到结果列表中去，但仍然需要使用到括号来分组正则表达式的话，确保你的分组是非捕获分组，形如`(?:...)`。比如：
 
-```
+```python
 >>> re.split(r'(?:,|;|\s)\s*', line)
 ['asdf', 'fjdk', 'afed', 'fjek', 'asdf', 'foo']
 >>>
@@ -36,7 +36,7 @@
 
 > 检查字符串开头或结尾的一个简单方法是使用`str.startswith()`或者`str.endswith()`方法。比如：
 
-```
+```python
 >>> filename = 'spam.txt'
 >>> filename.endswith('.txt')
 True
@@ -50,7 +50,7 @@ True
 
 > 如果你想检查多种匹配可能，只需要将所有的匹配想放入到一个元组中去，然后传给`startswith()`或者`endswith()`方法：
 
-```
+```python
 >>> import os
 >>> filenames = os.listdir('.')
 >>> filenames
@@ -64,7 +64,7 @@ True
 
 > 注意；这个方法必须要输入一个元组作为参数。如果你恰巧有一个`list`或者`set`类型的选择项，要确保传递参数前先调用`tuple()`将其转换为元组类型。比如：
 
-```
+```python
 >>> choices = ['http:', 'ftp:']
 >>> url = 'http://www.python.org'
 >>> url.startswith(choices)
@@ -82,7 +82,7 @@ True
 
 > `fnmatch`模块提供了两个函数，`fnmatch()`和`fnmatchcase()`，可以用来实现这样的匹配。如下：
 
-```
+```python
 >>> from fnmatch import fnmatch, fnmatchcase
 >>> fnmatch('foo.txt', '*.txt')
 True
@@ -98,7 +98,7 @@ True
 
 > `fnmatch()`函数使用底层操作系统的大小写明干规则(不同的系统是不一样的)来匹配模式；比如：
 
-```
+```python
 >>> # On OS X (Mac)
 >>> fnmatch('foo.txt', '*.TXT')
 False
@@ -110,7 +110,7 @@ True
 
 > 如果你很对这个区别很再以，可以使用`fnmatchcase()`来代替。它完全使用你的模式大小写匹配。比如：
 
-```
+```python
 >>> fnmatchcase('foo.txt', '*.TXT')
 False
 >>>
@@ -118,7 +118,7 @@ False
 
 > 这两个函数通常会被忽略的一个特性是在处理非文件名的字符串时候他们也是很有用的。比如，假设你有一个街道地址的列表数据：
 
-```
+```python
 addresses = [
     '5412 N CLARK ST',
     '1060 W ADDISON ST',
@@ -130,7 +130,7 @@ addresses = [
 
 > 你可以像这样写列表推导：
 
-```
+```python
 >>> from fnmatch import fnmatchcase
 >>> [addr for addr in addresses if fnmatchcase(addr, '* ST')]
 ['5412 N CLARK ST', '1060 W ADDISON ST', '2122 N CLARK ST']
@@ -143,7 +143,7 @@ addresses = [
 
 > 使用`fnmatch.filter()`对一个`list`进行过滤；如下：
 
-```
+```python
 import fnmatch
 import os
 
@@ -154,7 +154,7 @@ for dirpath, dirnames, filenames in os.walk('/root/python3/logscan'):
 
 执行结果如下：
 
-```
+```python
 /root/python3/logscan/app.py
 /root/python3/logscan/logscan/__init__.py
 /root/python3/logscan/logscan/match.py
@@ -165,7 +165,7 @@ for dirpath, dirnames, filenames in os.walk('/root/python3/logscan'):
 
 > 对于复杂的匹配需要使用正则表达式和`re`模块。为了解释正则表达式的基本原理，假设你想匹配数字个是的日期字符串，比如`11/27/2012`，你可以这样做：
 
-```
+```python
 >>> text1 = '11/27/2012'
 >>> text2 = 'Nov 27, 2012'
 >>>
@@ -188,7 +188,7 @@ no
 
 > 如果你想使用同一个模式去作多次匹配，你应该先将模式字符串预编译为模式对象。比如：
 
-```
+```python
 >>> datepat = re.compile(r'\d+/\d+/\d+')
 >>> if datepat.match(text1):
 ... print('yes')
@@ -207,7 +207,7 @@ no
 
 > 注意，`match()`总是从字符串开始去匹配，如果你想查找字符串任意部分的模式出现位置，使用`findall()`方法去代替。比如：
 
-```
+```python
 >>> text = 'Today is 11/27/2012. PyCon starts 3/13/2013.'
 >>> datepat.findall(text)
 ['11/27/2012', '3/13/2013']
@@ -216,14 +216,14 @@ no
 
 > 在定义正则式的时候，通常会利用括号去捕获分组。比如：
 
-```
+```python
 >>> datepat = re.compile(r'(\d+)/(\d+)/(\d+)')
 >>>
 ```
 
 > 捕获分组可以是的后面的处理更加简单，因为可以分别将每个组的内容提取出来。比如：
 
-```
+```python
 >>> m = datepat.match('11/27/2012')
 >>> m
 <_sre.SRE_Match object at 0x1005d2750>
@@ -255,7 +255,7 @@ no
 
 > `findall()`方法会搜索文本并以列表形式返回所有的匹配。如果你想以迭代方式返回匹配，可以使用`finditer()`方法来代替，比如：
 
-```
+```python
 >>> for m in datepat.finditer(text):
 ... print(m.groups())
 ...
@@ -266,7 +266,7 @@ no
 
 > 注意，关于正则表达式最基本的方法，核心步骤就是使用`re.compile()`编译正则表达式字符串，然后使用`match()`，`findall()`或者`finditer()`等方法。
 
-```
+```python
 >>> for m in datepat.finditer(text):
 ... print(m.groups())
 ...
@@ -281,7 +281,7 @@ no
 
 > 对于简单的字面模式，直接使用`str.replace()`方法即可；对于复杂的模式，请使用`re`模块中的`sub()`函数。为了说明这个，假设你想将形式为`11/27/2012`的日期字符串改成`2012-11-27`。如下：
 
-```
+```python
 >>> text = 'Today is 11/27/2012. PyCon starts 3/13/2013.'
 >>> import re
 >>> re.sub(r'(\d+)/(\d+)/(\d+)', r'\3-\1-\2', text)
@@ -293,7 +293,7 @@ no
 
 > 如果你打算用相同的模式做多次替换，考虑先编译它来提升性能。比如：
 
-```
+```python
 >>> import re
 >>> datepat = re.compile(r'(\d+)/(\d+)/(\d+)')
 >>> datepat.sub(r'\3-\1-\2', text)
@@ -303,7 +303,7 @@ no
 
 > 对于更加复杂的替换，可以传递一个替换回调函数来代替，比如：
 
-```
+```python
 >>> from calendar import month_abbr
 >>> def change_date(m):
 ... mon_name = month_abbr[int(m.group(1))]
@@ -316,7 +316,7 @@ no
 
 > 如果除了替换后的结果外，你还想知道有多少替换发生了，可是使用`re.subn()`来代替。比如：
 
-```
+```python
 >>> newtext, n = datepat.subn(r'\3-\1-\2', text)
 >>> newtext
 'Today is 2012-11-27. PyCon starts 2013-3-13.'
@@ -329,7 +329,7 @@ no
 
 > 为了在文本操作时忽略大小写，你需要在使用`re`模块的时候给这些操作提供`re.IGNORECASE`标志参数；比如：
 
-```
+```python
 >>> text = 'UPPER PYTHON, lower python, Mixed Python'
 >>> re.findall('python', text, flags=re.IGNORECASE)
 ['PYTHON', 'python', 'Python']
@@ -342,7 +342,7 @@ no
 
 > 这个问题一般出现在需要匹配一对分隔符之间的文本的时候（比如引号包含的字符串）。如下：
 
-```
+```python
 >>> str_pat = re.compile(r'\"(.*)\"')
 >>> text1 = 'Computer says "no."'
 >>> str_pat.findall(text1)
@@ -357,7 +357,7 @@ no
 
 > 为了修正这个问题，可以在模式中的`*`操作符后面加上`?`修饰符，如下：
 
-```
+```python
 >>> str_pat = re.compile(r'\"(.*?)\"')
 >>> str_pat.findall(text2)
 ['no.', 'yes.']
@@ -374,7 +374,7 @@ no
 
 > `re.compile()`函数接受一个标志参数叫`re.DOTALL`，在这里非常有用；它可以让正则表达式中的点(.)匹配包括换行符在内的任意字符。比如：
 
-```
+```python
 >>> text2 = '''/* this is a
 ... multiline comment */
 ... '''
@@ -386,7 +386,7 @@ no
 
 > 注意，在正则表达式中，可以使用`?P<NAME>`来给模式命名，以供后面使用。
 
-```
+```python
 import re
 NAME = r'(?P<NAME>[a-zA-Z_][a-zA-Z_0-9]*)'
 NUM = r'(?P<NUM>\d+)'
@@ -402,7 +402,7 @@ master_pat = re.compile('|'.join([NAME, NUM, PLUS, TIMES, EQ, WS]))
 
 > 对于基本的字符串对齐操作，可以使用字符串的`ljust()`，'rjust()`和`center()`方法。但是函数`format()`同样可以用来很容易的对齐字符串。你要做的就是使用`<,>`或者`^`字符后面紧跟一个指定的宽度；比如：
 
-```
+```python
 >>> format(text, '>20')
 '         Hello World'
 >>> format(text, '<20')
@@ -414,7 +414,7 @@ master_pat = re.compile('|'.join([NAME, NUM, PLUS, TIMES, EQ, WS]))
 
 > 如果你想指定一个非空格的填充字符，将它写到对齐字符的前面即可；
 
-```
+```python
 >>> format(text, '=>20s')
 '=========Hello World'
 >>> format(text, '*^20s')
@@ -424,7 +424,7 @@ master_pat = re.compile('|'.join([NAME, NUM, PLUS, TIMES, EQ, WS]))
 
 > 当格式化多个值的时候，这个格式代码也可以被用在`format()`方法中；比如：
 
-```
+```python
 >>> '{:>10s} {:>10s}'.format('Hello', 'World')
 '     Hello      World'
 >>>
@@ -434,7 +434,7 @@ master_pat = re.compile('|'.join([NAME, NUM, PLUS, TIMES, EQ, WS]))
 
 > `format()`函数的一个好处是它不仅适用于字符串。它可以用来格式化任何值，使得它非常的通用。
 
-```
+```python
 >>> x = 1.2345
 >>> format(x, '>10')
 '    1.2345'
@@ -447,7 +447,7 @@ master_pat = re.compile('|'.join([NAME, NUM, PLUS, TIMES, EQ, WS]))
 
 > 使用`textwrap`模块来格式化字符串的输出，比如：
 
-```
+```python
 s = "Look into my eyes, look into my eyes, the eyes, the eyes, \
 the eyes, not around the eyes, don't look around the eyes, \
 look into my eyes, you're under."
@@ -455,7 +455,7 @@ look into my eyes, you're under."
 
 > 下面演示使用`textwrap`格式化字符串的多种方式：
 
-```
+```python
 >>> import textwrap
 >>> print(textwrap.fill(s, 70))
 Look into my eyes, look into my eyes, the eyes, the eyes, the eyes,

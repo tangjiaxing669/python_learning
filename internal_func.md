@@ -170,7 +170,7 @@ Mo Tu We Th Fr Sa Su
 
 假设我有如下目录结构：
 
-```python
+```shell
 [root@localhost python3]# tree -a /root/python3/logscan/
 /root/python3/logscan/
 |-- app.py

@@ -154,7 +154,7 @@ Popen(['/bin/sh', '-c', args[0], args[1], ...])
 
 【4】**executable**：该参数指定一个要执行的替换程序；它很少被用到。当`shell=False`时，`executable`将替换`args`中要执行的程序；但是，原始的`args`仍然会传递给该程序。大部分程序将`args`当作命令的名字，它可以不同于真实执行的程序。在Unix上，`args`名字变成`utilities`中可执行程序的显示名字，例如`ps`。如果`shell=True`，在Unix上`executable`参数表示指定一个替换默认的`/bin/sh`的shell。例如：
 
-```python
+```shell
 >>> import subprocess
 >>> subprocess.Popen(['ls', '-lh'], executable='df')
 Filesystem               Size  Used Avail Use% Mounted on
@@ -179,7 +179,7 @@ Try 'ls --help' for more information.
 
 > 当`shell=True`时，那么`executable`参数应该指向一个默认的`/bin/sh`的shell；如下：
 
-```python
+```shell
 >>> import subprocess
 >>> subprocess.Popen('ls -l', executable='/bin/bash', shell=True)
 -rw-r--r-- 1 root root  99391 Feb 25 17:25 content.txt

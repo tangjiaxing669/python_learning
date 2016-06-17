@@ -12,7 +12,7 @@
 
 例子：
 
-```python
+```shell
 >>> subprocess.call(["ls", "-l"])
 total 0
 drwxrwx--- 2 root root 6 Jun 12 21:37 gateone
@@ -30,7 +30,7 @@ drwxrwx--- 2 root root 6 Jun 12 21:37 gateone
 
 例子：
 
-```python
+```shell
 >>> subprocess.check_call(["ls", "-l"])
 total 0
 drwxrwx--- 2 root root 6 Jun 12 21:37 gateone
@@ -62,7 +62,7 @@ CalledProcessError: Command 'exit 1' returned non-zero exit status 1
 
 例子：
 
-```python
+```shell
 >>> subprocess.check_output(['ls', '-l'])
 'total 0\ndrwxrwx--- 2 root root 6 Jun 12 21:37 gateone\n'
 

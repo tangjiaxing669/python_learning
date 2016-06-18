@@ -448,3 +448,130 @@ TypeError: can't send non-None value to a just-started generator
 [0, 1, 2, 3, 4]
 >>>
 ```
+
+### 类中的self
+
+> 我们知道类中的`self`代表了这个类对象的本身(也就是实例对象本身)；我们先看如下一段代码：
+
+```python
+class Pair:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def method(self):
+        return self
+
+p = Pair(3, 4)
+
+print('p is {0!r}'.format(p))
+print('p is {0}'.format(p))
+print('self is {0}'.format(p.method()))
+```
+
+> 上面代码执行结果如下：
+
+```python
+p is <__main__.Pair object at 0x7f85b3380ac8>
+p is <__main__.Pair object at 0x7f85b3380ac8>
+self is <__main__.Pair object at 0x7f85b3380ac8>
+```
+
+> 上面代码中的`!r`表示指定使用`__repr__()`方法输出；第二个`print()`语句默认会调用类的`__str__()`方法来输出；第三个`print()`指定输出类方法`p.method()`，注意，类方法`method()`中定义的是`return self`语句；上面的输出结果都是一样(输出实例对象的本身)。
+> 现在我们把代码稍稍改动一下：
+
+```python
+class Pair:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return 'Pair({0.x!r}, {0.y!r})'.format(self)
+
+    def __str__(self):
+        return '({0.x!s}, {0.y!s})'.format(self)
+
+    def method(self):
+        return self
+
+p = Pair(3, 4)
+
+print('p is {0!r}'.format(p))
+print('p is {0}'.format(p))
+print('self is {0}'.format(p.method()))
+```
+
+> 上面代码执行结果如下：
+
+```python
+p is Pair(3, 4)
+p is (3, 4)
+self is (3, 4)
+```
+
+> 我们看到`return self`默认会调用`__str__()`方法，而当类中没有定义`__str__()`方法的时候，那么它会去调用`__repr__()`方法；如果这两个方法都没有，那么就会输出实例对象的本身，也就是我们上面看到的那样。我们演示以下：
+
+```python
+class Pair:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return 'Pair({0.x!r}, {0.y!r})'.format(self)
+
+    def method(self):
+        return self
+
+p = Pair(3, 4)
+
+print('p is {0!r}'.format(p))
+print('p is {0!s}'.format(p))
+print('self is {0}'.format(p.method()))
+```
+
+> 上面代码执行结果如下：
+
+```python
+p is Pair(3, 4)
+p is Pair(3, 4)
+self is Pair(3, 4)
+```
+
+> 注意，你可以使用`!s`来指定输出；如`print('p is {0!s}'.format(p))`；
+> 当你使用`!s`选项而类中却没有定义`__str__()`方法，那么它会自动去调用`__repr__()`方法；
+> 当你使用`!r`选项而类中却没有定义`__repr__()`方法时，它会输出实例对象本身。如下：
+
+```python
+class Pair:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        
+    def __str__(self):
+        return '({0.x!s}, {0.y!s})'.format(self)
+
+    def method(self):
+        return self
+
+p = Pair(3, 4)
+
+print('p is {0!r}'.format(p))
+print('p is {0!s}'.format(p))
+print('self is {0}'.format(p.method()))
+```
+
+> 执行结果如下：
+
+```python
+p is <__main__.Pair object at 0x7f2e72434b00>
+p is (3, 4)
+self is (3, 4)
+```
+
+> 总结(基于对对象实例的打印)
+- `return self`默认会调用类中定义的`__str__()`方法，如果没有此方法，则会调用`__repr__()`方法，如果也没有此方法，那么会输出实例对象本身。
+- `format()`方法中的`!r`会指定使用类中的`__repr__()`方法来输出，如果类中没有定义此方法，则会输出实例对象本身。
+- `format()`方法中的`!s`会指定使用类中的`__str__()`方法来输出，如果类中没有定义此方法，则会使用`__repr__()`方法来输出，如果也没有此方法，那么会输出实例对象本身。
+- 

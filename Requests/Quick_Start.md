@@ -58,7 +58,7 @@ Requests功能特性包括：
 
 > **注意，HTTP的`GET`方法是明文提交，且长度有限；`POST`方法是隐藏的方式提交(不一定是加密)，且只能提交文字解码或字符串。**
 
-### 1. 安装
+### 安装
 
 使用`pip`安装Requests非常简单
 
@@ -96,7 +96,7 @@ $ curl -OL https://github.com/kennethreitz/requests/zipball/master
 $ python setup.py install
 ```
 
-### 2. 发送请求
+### 发送请求
 
 > 使用Requests发送网络请求非常简单
 
@@ -129,7 +129,7 @@ Request简便的API意味着所有HTTP请求类型都是显而易见的。例如
 >>> r = requests.options("http://httpbin.org/get")
 ```
 
-### 3. 为URL传递参数
+### 为URL传递参数
 
 你也许经常想为URL的查询字符串(query string)传递某种数据。如果你是手工构建URL，那么数值会以键/值对的形式置于URL中，跟在一个问号的后面。例如`httpbin.org/get?key=val`。`Requests`允许你使用`params`关键字参数，以一个字典来提供这些参数。举例来说，如果你想传递`key1=value1`和`key2=value2`到`httpbin.org/get`，那么你可以使用如下代码：
 
@@ -154,7 +154,7 @@ http://httpbin.org/get?key2=value2&key1=value1
 http://httpbin.org/get?key2=value2&key1=value1
 ```
 
-### 4. 响应内容
+### 响应内容
 
 我们能读取服务器响应的内容。再次以Github时间线为例：
 
@@ -181,7 +181,7 @@ u'[{"repository":{"open_issues":0,"url":"https://github.com/...
 
 在你需要的情况下，Requests也可以使用定制的编码。如果你创建了自己的编码，并使用`codecs`模块进行注册额，你就可以轻松的使用这个解码器名称作为`r.encoding`的值，然后由Requests来为你处理编码。
 
-### 5. 二进制响应内容
+### 二进制响应内容
 
 你也能以字节的方式访问请求响应体，对于非文本请求：
 
@@ -199,7 +199,7 @@ Requests会自动为你解码`gzip`和`deflate`传输编码的响应数据。
 >>> i = Image.open(StringIO(r.content))
 ```
 
-### 6. JSON响应内容
+### JSON响应内容
 
 Requests中也有一个内置的`JSON`解码器，助你处理`JSON`数据：
 
@@ -212,7 +212,7 @@ Requests中也有一个内置的`JSON`解码器，助你处理`JSON`数据：
 
 如果`JSON`解码失败，`r.json`就会抛出一个异常。例如，响应内容是`401`(Unauthorized)，尝试访问`r.json`就会抛出`ValueError: No JSON object could be decoded`异常，不过你应该事先捕获此异常。
 
-### 7. 原始响应内容
+### 原始响应内容
 
 在罕见的情况下你可能想获取来自服务器的原始套接字响应，那么你可以访问`r.raw()`；如果你确实想这么干，那请你确保在初始化请求中设置了`stream=True`。如下：
 
@@ -234,7 +234,7 @@ with open(filename, 'wb') as fd:
 
 使用`Response.iter_content`将会处理大量你直接使用`Response.raw`。当流下载时，上面是有限推荐的获取内容方式。
 
-### 8. 定制请求头
+### 定制请求头
 
 如果你想为请求添加HTTP头部，只要简单的传递一个`dict`给`headers`参数就可以了。例如：
 
@@ -247,7 +247,7 @@ with open(filename, 'wb') as fd:
 >>> r = requests.post(url, data=json.dumps(payload), headers=headers)
 ```
 
-### 9. 更加复杂的POST请求
+### 更加复杂的POST请求
 
 通常，你想要发送一些编码为表单形式的数据，非常像一个HTML表单。要实现这个，只需要简单的传递一个字典给`data`参数。你的数据字典在发出请求时会自动编码为表单形式：
 
@@ -275,7 +275,7 @@ with open(filename, 'wb') as fd:
 >>> r = requests.post(url, data=json.dumps(payload))
 ```
 
-### 10. POST一个多部分编码(Multipart-Encoded)的文件
+### POST一个多部分编码(Multipart-Encoded)的文件
 
 `Requests`使得上传多部分编码文件变得很简单：
 
@@ -330,7 +330,7 @@ with open(filename, 'wb') as fd:
 
 > 注意，如果你发送一个非常大的文件来作为`multipart/form-data`请求，你可能希望使用流请求来实现。但默认情况下`requests`不支持流，有个第三方包支持`requests-toolbelt`。你可以阅读[toolbelt文档](https://toolbelt.rtfd.org/)来了解使用方法。
 
-### 11. 响应状态码
+### 响应状态码
 
 我们可以检测响应状态码：
 
@@ -370,7 +370,7 @@ None
 
 一切都是那么的和谐！
 
-### 12. 响应头
+### 响应头
 
 我们可以查看以一个Python字典形式展示的服务器响应头：
 
@@ -397,7 +397,7 @@ None
 'application/json'
 ```
 
-### 13. Cookies
+### Cookies
 
 如果某个响应中包含一些`Cookie`，你可以快速访问他们：
 
@@ -432,7 +432,7 @@ BD_HOME 0
 '{"cookies": {"cookies_are": "working"}}'
 ```
 
-### 14. 重定向与请求历史
+### 重定向与请求历史
 
 默认情况下，除了`HEAD`外，`Requests`会自动处理所有重定向。可以使用响应对象的`history`方法来追踪重定向。`Response.history`是一个`:class:Response<requests.Response>`对象的列表，为了完成请求而创建了这些对象。这个对象列表按照从最老到最近的请求进行排序。例如，Github将所有的HTTP请求重定向到HTTPS：
 
@@ -466,7 +466,7 @@ BD_HOME 0
 [<Response [301]>]
 ```
 
-### 15. 超时
+### 超时
 
 你可以告诉`requests`在经过以`timeout`参数设定的秒数时间之后停止等待响应：
 
@@ -479,7 +479,7 @@ requests.exceptions.Timeout: HTTPConnectionPool(host='github.com', port=80): Req
 
 > 注意，`timeout`仅对间接过程有效，与响应体的下载无关。`timeout`并不是整个下载响应的时间限制，而是如果服务器在‘`timeout`’秒内没有应答，将会引发一个异常(更精确的说是在'`timeout`'秒内没有从基础套接字上接收到任何字节的数据时)。
 
-### 16. 错误与异常
+### 错误与异常
 
 > * 遇到网络问题(如DNS查询失败、拒绝连接2等)时，`Requests`会抛出一个`ConnectionError`异常。
 > * 遇到罕见的无效的HTTP响应时，`Requests`则会抛出一个`HTTPError`异常。

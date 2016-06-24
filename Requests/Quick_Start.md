@@ -55,8 +55,6 @@ Requests功能特性包括：
 > * 适用于Python 2.6-3.4
 > * 线程安全
 
-<hr>
-
 > 注意，HTTP的`GET`方法是明文提交，且长度有限；`POST`方法是隐藏的方式提交(不一定是加密)，且只能提交文字解码或字符串。
 
 <hr>
@@ -65,37 +63,37 @@ Requests功能特性包括：
 
 使用`pip`安装Requests非常简单
 
-```python
+```shell
 $ pip install requests
 ```
 
 或者使用`easy_install`安装
 
-```python
+```shell
 $ easy_install requests
 ```
 
 Requests一直在Github上被积极的开发着，你可以在此获得源代码。比如克隆公共版本库：
 
-```python
+```shell
 git clone git://github.com/kennethreitz/requests.git
 ```
 
 下载源码
 
-```python
+```shell
 $ curl -OL https://github.com/kennethreitz/requests/tarball/master
 ```
 
 或者下载zipball
 
-```python
+```shell
 $ curl -OL https://github.com/kennethreitz/requests/zipball/master
 ```
 
 一旦你获得了复本，你就可以轻松的将它嵌入到你的Python包里或者安装到你的`site-packages`：
 
-```python
+```shell
 $ python setup.py install
 ```
 

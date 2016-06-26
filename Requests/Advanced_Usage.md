@@ -288,7 +288,7 @@ Requests符合所有相关的规范和RFC，这样不会为用户造成不必要
 
 在这种情况下，[RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.7.1)指定默认字符集必须是`ISO-888599-1`。Requests遵从这一规范。如果你需要一种不同的编码方式，你可以手动设置`Response.encoding`属性，或使用原始的`Response.content`。
 
-### HTTP动词
+### HTTP方法
 
 Requests提供了几乎所有HTTP方法的功能：`GET`、`OPTIONS`、`HEAD`、`POST`、`PUT`、`PATCH`和`DELETE`。以下为使用Requests中这些方法以及Github API提供了详细示例。
 

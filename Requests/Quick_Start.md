@@ -328,7 +328,7 @@ with open(filename, 'wb') as fd:
 }
 ```
 
-> 注意，如果你发送一个非常大的文件来作为`multipart/form-data`请求，你可能希望使用流请求来实现。但默认情况下`requests`不支持流，有个第三方包支持`requests-toolbelt`。你可以阅读[toolbelt文档](https://toolbelt.rtfd.org/)来了解使用方法。
+> 注意，如果你发送一个非常大的文件来作为`multipart/form-data`请求，你可能希望使用流请求来实现。但默认情况下`requests`不支持，有个第三方包支持`requests-toolbelt`。你可以阅读[toolbelt文档](https://toolbelt.rtfd.org/)来了解使用方法。
 
 ### 响应状态码
 

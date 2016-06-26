@@ -1,5 +1,7 @@
 # Requests
 
+> 参考 http://docs.python-requests.org/zh_CN/latest/user/quickstart.html
+
 Request是使用[Apache2 Licensed](http://docs.python-requests.org/zh_CN/latest/user/intro.html#apache2)许可证的HTTP库。用Python编写，真正的为人类着想。
 
 Python标准库中的`urllib2`模块提供了你所需要的大多数HTTP功能，但是它的API太渣了。它是为另一个时代、另一个互联网所创建的。它需要巨量的工作，甚至包括各种方法覆盖，来完成最简单的任务。

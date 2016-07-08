@@ -773,7 +773,7 @@ getattr: z
 
 再看一个简单点的例子：
 
-``python
+```python
 class A:
     def spam(self, x):
         print('A.spam', x)

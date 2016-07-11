@@ -23,10 +23,8 @@ CRITICAL:root:critical message
 ```
 
 默认情况下，`logging`模块将日志打印到屏幕上(stdout)，日志级别为`WARNING`(即只有日志级别高于`WARNING`的日志信息才会输出)，日志格式如下：
-![此处输入图片的描述][1]
 
-
-  [1]: http://upload-images.jianshu.io/upload_images/477558-da69f58ffd67989c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+![](./picture/logging_1.png)
 
 ### 日志级别
 

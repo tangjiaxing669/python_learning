@@ -54,7 +54,7 @@ CalledProcessError: Command 'exit 1' returned non-zero exit status 1
 
 <hr>
 
-**subprocess.check_output(args, *, stdin=None, stderr=None, shell=False, universal_newlines=False)**
+**subprocess.check_output(args, *, stdin=None, stderr=None, timeout=None, shell=False, universal_newlines=False)**
 
 > 执行**args**描述的命令，并将它的输出作为字节字符串返回。
 

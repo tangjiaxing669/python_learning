@@ -82,9 +82,8 @@ CalledProcessError                        Traceback (most recent call last)
 CalledProcessError: Command 'exit 1' returned non-zero exit status 1
 ```
 
-<hr>
-
 > **exception subprocess.CalledProcessError**
+
 > `check_call()`或者`check_output()`运行的进程在返回非零的退出状态时所抛出的异常。
 
 <hr>

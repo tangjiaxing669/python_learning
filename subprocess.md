@@ -86,6 +86,23 @@ CalledProcessError: Command 'exit 1' returned non-zero exit status 1
 
 > `check_call()`或者`check_output()`运行的进程在返回非零的退出状态时所抛出的异常。
 
+如下：
+
+```python
+>>> import subprocess
+>>> try:
+...     out_bytes = subprocess.check_output("echo 'jason tom'; exit 1", shell=True)
+... except subprocess.CalledProcessError as e:
+...     out_bytes = e.output
+...     code = e.returncode
+...
+>>> out_bytes
+b'jason tom\n'
+>>> code
+1
+>>>
+```
+
 <hr>
 
 ### 2. 经常用到的参数

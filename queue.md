@@ -52,10 +52,10 @@
 
 ### Queue.put(item[,block[, timeout]])
 
-将`item`放入队列中。`block`默认为`True`；`timeout`默认为`None`；
-如果`timeout`和`block`都没有被指定；当队列满的时候，`put()`会一直阻塞；
-如果指定`timeout=1`并且`block=True`，那么当队列满的时候，`put()`会等待**1秒**超时后抛出`Queue.Full`异常；
-如果指定`block=False`(当`block=False`时，`timeout`参数将被忽略，指定与不指定都没用)表示队列满时不等待超时直接抛出异常；
+- 将`item`放入队列中。`block`默认为`True`；`timeout`默认为`None`；
+- 如果`timeout`和`block`都没有被指定；当队列满的时候，`put()`会一直阻塞；
+- 如果指定`timeout=1`并且`block=True`，那么当队列满的时候，`put()`会等待**1秒**超时后抛出`Queue.Full`异常；
+- 如果指定`block=False`(当`block=False`时，`timeout`参数将被忽略，指定与不指定都没用)表示队列满时不等待超时直接抛出异常；
 
 ### Queue.put_nowait(item)
 
@@ -63,10 +63,10 @@
 
 ### Queue.get([block, [timeout]])
 
-表示从队列中移除并返回一个数据。`block`默认为`True`；`timeout`默认为`None`；
-如果`timeout`和`block`都没有被指定；当队列为空的时候，`get()`会一直阻塞；
-如果指定`timeout=1`并且`block=True`，那么当队列为空的时候，`get()`会等待**1秒**超时后抛出`Queue.Empty`异常；
-如果指定`block=False`(当`block=False`时，`timeout`参数将被忽略，指定与不指定都没用)表示队列为空时不等待超时直接抛出异常；
+- 表示从队列中移除并返回一个数据。`block`默认为`True`；`timeout`默认为`None`；
+- 如果`timeout`和`block`都没有被指定；当队列为空的时候，`get()`会一直阻塞；
+- 如果指定`timeout=1`并且`block=True`，那么当队列为空的时候，`get()`会等待**1秒**超时后抛出`Queue.Empty`异常；
+- 如果指定`block=False`(当`block=False`时，`timeout`参数将被忽略，指定与不指定都没用)表示队列为空时不等待超时直接抛出异常；
 
 ### Queue.get_nowait()
 

@@ -266,7 +266,7 @@ _uucp:*:4:4:Unix to Unix Copy Protocol:/var/spool/uucp:/usr/sbin/uucico
 
 - `__next__`，每次for循环还有next都会调用这个方法。
 - `send(value)`，用`value`对`yield`语句赋值，再执行接下来的代码直到下个`yield`。
-- `throw(typ[,val[,tb]])，抛出错误，类似于`raise`。
+- `throw(typ[,val[,tb]])`，抛出错误，类似于`raise`。
 - `close()`，告诉生成器你已经死了，再调用会抛出`StopIteration`异常。
 
 > 我们可以使用类似列表生成式的方法来创建一个生成器，如下：

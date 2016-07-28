@@ -564,18 +564,18 @@ PROG: error: too few arguments
 |action args  |description                                                                  |
 |:-----------:|:----------------------------------------------------------------------------|
 |store        |只保存参数的值；这是默认动作。                                               |
-|store_const  |保存由`const`关键字指出的值；`const`默认为`None`。                           |
-|store_true   |指定后值为`True`。它是`store_const`的特殊情形。                              |
-|store_false  |指定后值为`False`。它是`store_const`的特殊情形。                             |
+|store_const  |保存由**const**关键字指出的值；**const**默认为**None**。                           |
+|store_true   |指定后值为**True**。它是**store_const**的特殊情形。                              |
+|store_false  |指定后值为**False**。它是**store_const**的特殊情形。                             |
 |append       |保存为一个列表，将每个参数的值附加到列表后面。                               |
-|append_const |保存为一个列表，将`const`参数指定的值附加到列表后面。                        |
+|append_const |保存为一个列表，将**const**参数指定的值附加到列表后面。                        |
 |count        |计算关键字参数出现的次数；可用于增加详细的级别。                             |
 |help         |打印当前解析器中所有选项的完整帮助信息并退出。默认会自动添加到解析器中。     |
-|version      |它期待`version=`参数出现在`add_argument()`中，在调用时打印出版本信息并退出。 |
-|parse        |包含该动作的`ArgumentParser`对象。                                           |
-|namespace    |`parse_args()`返回的`Namespace`对象。大部分动作都会给该对象添加一个属性。    |
-|values       |相关联的命令行参数于类型转换之后的值。可通过`add_argument()`的`type`转换。   |
-|option_string|调用该动作的选项字符串。`option_string`是可选的。                            |
+|version      |它期待**version=**参数出现在**add_argument()**中，在调用时打印出版本信息并退出。 |
+|parse        |包含该动作的**ArgumentParser**对象。                                           |
+|namespace    |**parse_args()**返回的**Namespace**对象。大部分动作都会给该对象添加一个属性。    |
+|values       |相关联的命令行参数于类型转换之后的值。可通过**add_argument()**的**type**转换。   |
+|option_string|调用该动作的选项字符串。**option_string**是可选的。                            |
 
 > - `store`：只保存参数的值。这是默认动作。例如：
 

@@ -577,6 +577,8 @@ PROG: error: too few arguments
 |values       |相关联的命令行参数于类型转换之后的值。可通过**add_argument()**的**type**转换。   |
 |option_string|调用该动作的选项字符串。**option_string**是可选的。                            |
 
+>注意，`action`中的`append`和`nargs`中的`N`这两者的区别；`append`的指定方式是` --foo 1 --foo 2 --foo 3...`，程序接收到的是一个列表`['1','2','3'...]`；而当指定`nargs=2`时，其命令行接受参数的方式为`--bar 1 2`，程序接收到的是一个列表`['1', '2']`；另外，`nargs`值为`2`，那么在命令行中就必须得指定两个`bar`的参数值，多与少都报错。
+
 > - `store`：只保存参数的值。这是默认动作。例如：
 
 ```python

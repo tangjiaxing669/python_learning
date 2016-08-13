@@ -91,6 +91,23 @@ no
 
 > 注意，`re.match()`方法是从第一个字符开始匹配的，如果第一个字符没有匹配上，就返回`None`，否则返回`match`对象。
 
+### re.search()方法
+
+```python
+>>> import re
+>>> text2 = 'Nov 27, 2012'
+>>> text1 = '11/27/2012'
+>>> re.search(r'(\d+)/(\d+)/(\d+)', text1)
+<_sre.SRE_Match object; span=(0, 10), match='11/27/2012'>
+>>> re.search(r'(\d+)/(\d+)/(\d+)', text2)
+>>> re.search(r'(\d+)', text2)
+<_sre.SRE_Match object; span=(4, 6), match='27'>
+>>> re.search(r'(\d+)+', text2)
+<_sre.SRE_Match object; span=(4, 6), match='27'>
+```
+
+> 注意，`re.search()`方法只会匹配最开始找到的项。
+
 ### re.findall()方法
 
 如果你想查找字符串任意部分的模式出现为止，则应该使用`findall()`方法去代替。比如：
